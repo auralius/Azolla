@@ -1,18 +1,1 @@
-{\rtf1\ansi\deff0\adeflang1025
-{\fonttbl{\f0\froman\fprq2\fcharset128 Liberation Serif{\*\falt Times New Roman};}{\f1\froman\fprq2\fcharset128 Liberation Serif{\*\falt Times New Roman};}{\f2\fswiss\fprq2\fcharset128 Liberation Sans{\*\falt Arial};}{\f3\fnil\fprq0\fcharset128 Liberation Serif{\*\falt Times New Roman};}{\f4\fnil\fprq2\fcharset128 DejaVu Sans;}{\f5\fmodern\fprq1\fcharset128 DejaVu Sans;}{\f6\fnil\fprq2\fcharset128 Lohit Hindi;}{\f7\fnil\fprq0\fcharset128 Lohit Hindi;}{\f8\fmodern\fprq1\fcharset128 DejaVu Sans Mono;}}
-{\colortbl;\red0\green0\blue0;\red128\green128\blue128;}
-{\stylesheet{\s1\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af6\afs24\lang1081\ltrch\dbch\af4\langfe2052\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033\snext1 Normal;}
-{\s2\sb240\sa120\keepn\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\afs28\lang1081\ltrch\dbch\langfe2052\hich\f2\fs28\lang1033\loch\f2\fs28\lang1033\sbasedon1\snext3 Heading;}
-{\s3\sa120\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af6\afs24\lang1081\ltrch\dbch\af4\langfe2052\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033\sbasedon1\snext3 Body Text;}
-{\s4\sa120\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af7\afs24\lang1081\ltrch\dbch\af4\langfe2052\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033\sbasedon3\snext4 List;}
-{\s5\sb120\sa120\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af7\afs24\lang1081\ai\ltrch\dbch\af4\langfe2052\hich\f0\fs24\lang1033\i\loch\f0\fs24\lang1033\i\sbasedon1\snext5 caption;}
-{\s6\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af7\afs24\lang1081\ltrch\dbch\af4\langfe2052\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033\sbasedon1\snext6 Index;}
-{\s7\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af8\afs20\lang1081\ltrch\dbch\af5\langfe2052\hich\f3\fs20\lang1033\loch\f3\fs20\lang1033\sbasedon1\snext7 Preformatted Text;}
-}
-{\info{\creatim\yr0\mo0\dy0\hr0\min0}{\revtim\yr0\mo0\dy0\hr0\min0}{\printim\yr0\mo0\dy0\hr0\min0}{\comment StarWriter}{\vern3200}}\deftab709
-{\*\pgdsctbl
-{\pgdsc0\pgdscuse195\pgwsxn12240\pghsxn15840\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\pgdscnxt0 Standard;}}
-\paperh15840\paperw12240\margl1134\margr1134\margt1134\margb1134\sectd\sbknone\pgwsxn12240\pghsxn15840\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
-\pard\plain \ltrpar\s7\cf0{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\rtlch\af8\afs26\lang1081\ltrch\dbch\af5\langfe2052\hich\f3\fs26\lang1033\loch\f3\fs26\lang1033{\rtlch \ltrch\loch\f3\fs26\lang1033\i0\b0 Azolla is a development framework for mobile robot simulation using C++ language. Azzola is designed by emphasizing on simulation for probabilistic robotics. Its features are including: odometry, occupancy algorithm, mapping, and also localization.  The ma
-in goal for this simulator software development is to develop a simple 2D mobile robot simulator for testing even a sophisticated algorithm. The specific goals are to build a multi platform and lightweight mobile robot simulator which is easy to use.}
-\par }
+Azolla is a development framework for mobile robot simulation using C++ language. Azzola is designed by emphasizing on simulation for probabilistic robotics. Its features are including: odometry, occupancy algorithm, mapping, and also localization.  The main goal for this simulator software development is to develop a simple 2D mobile robot simulator for testing even a sophisticated algorithm. The specific goals are to build a multi platform and lightweight mobile robot simulator which is easy to use.
