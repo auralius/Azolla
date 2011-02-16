@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1297820977 source:/home/auralius/workspace/Azolla/main.cpp
+	"azolla/azolla.H"
+
+1297820766 /home/auralius/workspace/Azolla/azolla/azolla.H
+	"simulation_window.H"
+	"sensor.H"
+	<boost/thread.hpp>
+	<boost/random.hpp>
+	<boost/random/normal_distribution.hpp>
+	<vector>
+
+1297773243 /home/auralius/workspace/Azolla/azolla/canvas.H
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/fl_draw.H>
+	<FL/math.h>
+	"configure.H"
+	"point2d.H"
+	"sensor.H"
+	<string.h>
+
+1297820951 source:/home/auralius/workspace/Azolla/azolla/azolla.CPP
+	"azolla.H"
+
+1297816682 source:/home/auralius/workspace/Azolla/azolla/canvas.CPP
+	"canvas.H"
+
+1297818363 /home/auralius/workspace/Azolla/azolla/simulation_window.H
+	<FL/Fl.H>
+	<FL/Fl_Double_Window.H>
+	<FL/Fl_Menu_Bar.H>
+	<FL/Fl_File_Chooser.H>
+	<FL/fl_ask.H>
+	<FL/Fl_Bitmap.H>
+	<stdlib.h>
+	<string.h>
+	"canvas.H"
+	"world.H"
+
+1297818363 source:/home/auralius/workspace/Azolla/azolla/simulation_window.CPP
+	"simulation_window.H"
+
+1297772156 /home/auralius/workspace/Azolla/azolla/point2d.H
+	<math.h>
+	<vector>
+
+1297772155 source:/home/auralius/workspace/Azolla/azolla/point2d.CPP
+	"point2d.H"
+
+1296708456 /home/auralius/workspace/Azolla/azolla/constants.H
+
+1296163726 /home/auralius/workspace/Azolla/azolla/menus.H
+	<FL/Fl_Menu_Bar.H>
+
+1297819710 source:/home/auralius/workspace/Azolla/azolla/world.CPP
+	"world.H"
+	"stdio.h"
+
+1297588310 /home/auralius/workspace/Azolla/azolla/world.H
+	<FL/Fl_Shared_Image.H>
+	<FL/Fl_PNG_Image.H>
+
+1297818603 source:/home/auralius/workspace/Azolla/azolla/sensor.CPP
+	"sensor.H"
+
+1297818548 /home/auralius/workspace/Azolla/azolla/sensor.H
+	"point2d.H"
+	<vector>
+
+1297769653 /home/auralius/workspace/Azolla/azolla/configure.H
+
+1297557726 source:/home/auralius/workspace/Azolla/azolla/debug.CPP
+	"debug.H"
+	<stdio.h>
+
+1297557726 /home/auralius/workspace/Azolla/azolla/debug.H
+	<stdarg.h>
+

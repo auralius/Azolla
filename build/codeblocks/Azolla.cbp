@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Azolla" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Azolla" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Azolla" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-O2" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`fltk-config --cxxflags`" />
+			<Add option="-DNDEBUG" />
+		</Compiler>
+		<Linker>
+			<Add option="`fltk-config --ldstaticflags --use-images`" />
+			<Add option="-lboost_thread" />
+		</Linker>
+		<Unit filename="../../src/azolla/azolla.CPP" />
+		<Unit filename="../../src/azolla/azolla.H" />
+		<Unit filename="../../src/azolla/canvas.CPP" />
+		<Unit filename="../../src/azolla/canvas.H" />
+		<Unit filename="../../src/azolla/configure.H" />
+		<Unit filename="../../src/azolla/menus.H" />
+		<Unit filename="../../src/azolla/point2d.CPP" />
+		<Unit filename="../../src/azolla/point2d.H" />
+		<Unit filename="../../src/azolla/sensor.CPP" />
+		<Unit filename="../../src/azolla/sensor.H" />
+		<Unit filename="../../src/azolla/simulation_window.CPP" />
+		<Unit filename="../../src/azolla/simulation_window.H" />
+		<Unit filename="../../src/azolla/world.CPP" />
+		<Unit filename="../../src/azolla/world.H" />
+		<Unit filename="../../src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
