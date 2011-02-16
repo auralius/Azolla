@@ -39,9 +39,9 @@
 		<Unit filename="../../src/azolla/canvas.CPP" />
 		<Unit filename="../../src/azolla/canvas.H" />
 		<Unit filename="../../src/azolla/configure.H" />
-		<Unit filename="../../src/azolla/menus.H" />
 		<Unit filename="../../src/azolla/point2d.CPP" />
 		<Unit filename="../../src/azolla/point2d.H" />
+		<Unit filename="../../src/azolla/pose.H" />
 		<Unit filename="../../src/azolla/sensor.CPP" />
 		<Unit filename="../../src/azolla/sensor.H" />
 		<Unit filename="../../src/azolla/simulation_window.CPP" />

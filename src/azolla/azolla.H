@@ -9,6 +9,8 @@
 #include <boost/random/normal_distribution.hpp>
 
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 class CAzolla
 {
@@ -19,6 +21,11 @@ public:
     CAzolla(CSimulationWindow *w);
     ~CAzolla(void);
     void az_step();
+    void az_update_odometer();
+    void az_log_local_map(const char *fn);
+    void az_log_global_map(const char *fn);
+    void az_log_odom(const char *fn);
+    void az_log_sensor(const char *fn);
 
     // Set
     void az_set_simulation_fn(FUN fun);
@@ -34,15 +41,14 @@ public:
     double az_get_pos_y();
     double az_get_angle();
     double az_get_time_step();
+    double az_get_sensor(int i);
     unsigned char *az_get_local_map();
     unsigned char *az_get_global_map1();
     unsigned char *az_get_global_map2();
-    void az_get_odometer_data(double x[], double y[], double th[]);
-
+    void az_get_odometer_data(CPose &p);
 
     // Calculation
     int az_calc_index(int x, int y);
-    void az_update_odometer();
 
 private:
     static void simulation_thread(void* param);
@@ -63,18 +69,12 @@ private:
     double m_speed_l;
     // Right wheel angular speed
     double m_speed_r;
-    // Robot pose x
-    double m_pos_x;
-    // Robot previous pose x
-    double m_pos_x0;
-    // Robot pose y
-    double m_pos_y;
-    // Robot previous pose y
-    double m_pos_y0;
-    // Robot pose theta
-    double m_pos_th;
-    // Robot previous theta
-    double m_pos_th0;
+    // Robot current pose
+    CPose m_pose;
+    // Robot previous pose
+    CPose m_pose0;
+    // Storage for noisy odometry data for a certain sampling number
+    CPose m_odom[ODOM_SAMPLES];
     // Simulation time step
     double m_time_step;
     // Flag to see if this class has been loaded
@@ -91,10 +91,6 @@ private:
     unsigned char m_global_map[GRID_MAP_W * GRID_MAP_H];
     // Global map update type
     int m_map_update_type;
-    // Storage for noisy odometry data for a certain sampling number
-    double m_odom_x[ODOM_SAMPLES];
-    double m_odom_y[ODOM_SAMPLES];
-    double m_odom_th[ODOM_SAMPLES];
 };
 
 // TODO : Robot geometry => robot can have shape

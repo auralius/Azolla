@@ -20,10 +20,8 @@ CWorld::CWorld(const char * f)
     unsigned char r,g,b;
 
     // Convert to grayscale
-    for ( int y = 0; y < map.h(); y++ )
-    {
-        for ( int x = 0; x < map.w(); x++ )
-        {
+    for ( int y = 0; y < map.h(); y++ ) {
+        for ( int x = 0; x < map.w(); x++ ) {
             long index = (y * map.w() * map.d()) + (x * map.d());
             r = *(datap+index+0);
             g = *(datap+index+1);
@@ -43,10 +41,8 @@ CWorld::CWorld(const char * f)
     }
 
     // 1 bit map
-    for ( int y = 0; y < map.h(); y++ )
-    {
-        for ( int x = 0; x < map.w(); x++ )
-        {
+    for ( int y = 0; y < map.h(); y++ ) {
+        for ( int x = 0; x < map.w(); x++ ) {
             if (m_gs_map[x + y * m_width] >= 127)
                 m_binary_map[x + y * m_width] = false;  // No objects
             else
@@ -55,10 +51,8 @@ CWorld::CWorld(const char * f)
     }
 
     // Add light gray as background color to representate unknown area
-    for ( int y = 0; y < map.h(); y++ )
-    {
-        for ( int x = 0; x < map.w(); x++ )
-        {
+    for ( int y = 0; y < map.h(); y++ ) {
+        for ( int x = 0; x < map.w(); x++ ) {
             if (m_gs_map[x + y * m_width] >= 254)
                 m_gs_map[x + y * m_width] = 200; // Light gray
         }

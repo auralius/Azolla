@@ -64,9 +64,9 @@ int CSimulationWindow::get_area()
 *
 */
 
-void CSimulationWindow::set_robot_pos(double x, double y, double th)
+void CSimulationWindow::set_robot_pos(CPose &p)
 {
-    m_canvas->set_robot_pose(x, y, th);
+    m_canvas->set_robot_pose(p);
 }
 
 void CSimulationWindow::set_addr_sensor_data(CSensor *p)
@@ -79,9 +79,9 @@ void CSimulationWindow::set_addr_grid_data(unsigned char *p)
     m_canvas->set_addr_grid_data(p);
 }
 
-void CSimulationWindow::set_addr_odom_data(double *x, double *y)
+void CSimulationWindow::set_addr_odom_data(CPose *p)
 {
-    m_canvas->set_addr_odom_data(x, y);
+    m_canvas->set_addr_odom_data(p);
 }
 
 /**

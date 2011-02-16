@@ -12,10 +12,11 @@ void my_sim(CAzolla *p)
     p->az_set_rspeed(5);
     p->az_step();
 
-    if (i == 1)
+    if (i == 100)
     {
         p->az_get_global_map1();
         p->az_update_odometer();
+        p->az_log_sensor("test.txt");
         i = 0;
     }
     i++;

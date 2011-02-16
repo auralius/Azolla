@@ -8,8 +8,7 @@
 #include <FL/Fl_File_Chooser.H>
 #include <FL/fl_ask.H>
 #include <FL/Fl_Bitmap.H>
-#include <stdlib.h>
-#include <string.h>
+
 #include "canvas.H"
 #include "world.H"
 
@@ -24,10 +23,10 @@ public:
     const bool *get_binary_map();
     int get_area();
 
-    void set_robot_pos(double x, double y, double th);
+    void set_robot_pos(CPose &p);
     void set_addr_sensor_data(CSensor *p);
     void set_addr_grid_data(unsigned char *p);
-    void set_addr_odom_data(double *x, double *y);
+    void set_addr_odom_data(CPose *p);
 
 
 private:

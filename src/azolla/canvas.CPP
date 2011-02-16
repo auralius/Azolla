@@ -20,10 +20,9 @@ void CCanvas::set_drawing_mode(int m)
     m_drawing_mode = m;
 }
 
-void CCanvas::set_robot_pose(double x, double y, double th)
+void CCanvas::set_robot_pose(CPose &p)
 {
-    m_pos = CPoint2D(x,y);
-    m_theta = th;
+    m_pose = p;
 }
 
 void CCanvas::set_addr_sensor_data(CSensor *p)
@@ -36,10 +35,9 @@ void CCanvas::set_addr_grid_data(unsigned char *p)
     m_grid_map = p;
 }
 
-void CCanvas::set_addr_odom_data(double *x, double *y)
+void CCanvas::set_addr_odom_data(CPose *p)
 {
-    m_odom_x = x;
-    m_odom_y = y;
+    m_odom = p;
 }
 
 //
@@ -58,9 +56,10 @@ void CCanvas::draw_robot()
 {
     // Draw a robot as a circle with a line
     fl_color(FL_BLUE);
-    CPoint2D p1(m_pos.translate(ROBOT_SIZE_2, m_theta));
-    fl_line(m_pos.x(), m_pos.y(), p1.x(), p1.y());
-    fl_circle(m_pos.x(), m_pos.y(), ROBOT_SIZE_2);
+    CPoint2D p0(m_pose.x, m_pose.y);
+    CPoint2D p1(p0.translate(ROBOT_SIZE_2, m_pose.th));
+    fl_line(m_pose.x, m_pose.y, p1.x(), p1.y());
+    fl_circle(m_pose.x, m_pose.y, ROBOT_SIZE_2);
 }
 
 void CCanvas::draw_sensor_beam()
@@ -79,26 +78,23 @@ void CCanvas::draw_sensor_beam()
     // Draw only grid with OCC != 127, OCC = 127 means unknown
     else if (m_drawing_mode == 2)
     {
-        for (int y = 0; y < h(); y = y + 1)
-        {
-            for (int x = 0; x < w(); x = x + 1)
-            {
-                if (m_grid_map[x + y * GRID_MAP_W] != 127)
-                {
+        for (int y = 0; y < h(); y = y + 1) {
+            for (int x = 0; x < w(); x = x + 1) {
+                if (m_grid_map[x + y * GRID_MAP_W] != 127) {
                     unsigned char c = 255 - m_grid_map[x + y * GRID_MAP_W];
                     fl_color(c, c, c);
                     fl_point(x,y);
-                }
-            }
-        }
-    }
+                } //end if
+            } // end for x
+        } // end for y
+    } // end else if
 }
 
 void CCanvas::draw_odom()
 {
     for (int i = 0; i < ODOM_SAMPLES; i ++) {
         fl_color(FL_MAGENTA);
-        fl_point((int) m_odom_x[i], (int) m_odom_y[i]);
+        fl_point((int) m_odom[i].x, (int) m_odom[i].y);
     }
 }
 

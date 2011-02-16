@@ -11,18 +11,19 @@
 
 #include "configure.H"
 #include "point2d.H"
+#include "pose.H"
 #include "sensor.H"
-#include <string.h>
+
 
 class CCanvas:public Fl_Box
 {
 public:
     CCanvas(int x, int y, int w,int h,const char *l);
     void set_drawing_mode(int m);
-    void set_robot_pose(double x, double y, double th);
+    void set_robot_pose(CPose &p);
     void set_addr_sensor_data(CSensor *p);
     void set_addr_grid_data(unsigned char *p);
-    void set_addr_odom_data(double *x, double *y);
+    void set_addr_odom_data(CPose *p);
 
 private:
     void draw();
@@ -40,12 +41,9 @@ private:
     // also incluiding sensor and grid occupancy map.
     // Sensor and grid occupancy are pointers which point to
     // the real data at class CAzolla.
-    CPoint2D m_pos;
-    double m_theta;
+    CPose m_pose;
     CSensor *m_sensor_data;
     unsigned char *m_grid_map;
-
     // We are also going to draw noisy odometry data
-    double *m_odom_x;
-    double *m_odom_y;
+    CPose *m_odom;
 };
