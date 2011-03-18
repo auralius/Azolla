@@ -29,11 +29,9 @@ CSimulationWindow::~CSimulationWindow(void)
 }
 
 
-/**
-*
-* GET
-*
-*/
+///////////////////////////////////////////////////////////////////////////////
+// GET
+///////////////////////////////////////////////////////////////////////////////
 
 bool CSimulationWindow::get_simulation_flag()
 {
@@ -58,37 +56,14 @@ int CSimulationWindow::get_area()
     return m_area;
 }
 
-/**
-*
-* SET
-*
-*/
-
-void CSimulationWindow::set_robot_pos(CPose &p)
+CCanvas *CSimulationWindow::get_canvas()
 {
-    m_canvas->set_robot_pose(p);
+    return m_canvas;
 }
 
-void CSimulationWindow::set_addr_sensor_data(CSensor *p)
-{
-    m_canvas->set_addr_sensor_data(p);
-}
-
-void CSimulationWindow::set_addr_grid_data(unsigned char *p)
-{
-    m_canvas->set_addr_grid_data(p);
-}
-
-void CSimulationWindow::set_addr_odom_data(CPose *p)
-{
-    m_canvas->set_addr_odom_data(p);
-}
-
-/**
-*
-* PRIVATE MEMBERS
-*
-*/
+///////////////////////////////////////////////////////////////////////////////
+// PRIVATE MEMBERS
+///////////////////////////////////////////////////////////////////////////////
 
 void CSimulationWindow::window_configuration()
 {
@@ -159,7 +134,7 @@ void CSimulationWindow::menu_cb_worker()
         m_canvas->image(m_image);
 
         // Update the area
-        m_area = w() * h();
+        m_area = m_canvas->w() * m_canvas->h();
     }
 
     else if ( strcmp(picked, "File/Quit") == 0 )
@@ -171,6 +146,8 @@ void CSimulationWindow::menu_cb_worker()
     {
         m_simulation_running = true;
 
+        m_canvas->notify_simulation_status(true);
+
         Fl_Menu_Item *m = (Fl_Menu_Item *)m_menu->find_item("Simulation/Run");
         m->deactivate();
         m = (Fl_Menu_Item *)m_menu->find_item("Simulation/Stop");
@@ -180,6 +157,8 @@ void CSimulationWindow::menu_cb_worker()
     else if ( strcmp(picked, "Simulation/Stop") == 0 )
     {
         m_simulation_running = false;
+
+        m_canvas->notify_simulation_status(false);
 
         Fl_Menu_Item *m = (Fl_Menu_Item *)m_menu->find_item("Simulation/Run");
         m->activate();

@@ -77,20 +77,18 @@
 1297557726 /home/auralius/workspace/Azolla/azolla/debug.H
 	<stdarg.h>
 
-1297872144 source:/home/auralius/workspace/Azolla/src/azolla/azolla.CPP
+1300449108 source:/home/auralius/workspace/Azolla/src/azolla/azolla.CPP
 	"azolla.H"
 
-1297872557 /home/auralius/workspace/Azolla/src/azolla/azolla.H
+1300125526 /home/auralius/workspace/Azolla/src/azolla/azolla.H
 	"simulation_window.H"
-	"sensor.H"
 	<boost/thread.hpp>
 	<boost/random.hpp>
 	<boost/random/normal_distribution.hpp>
-	<vector>
 	<iostream>
 	<fstream>
 
-1297872260 /home/auralius/workspace/Azolla/src/azolla/simulation_window.H
+1299690840 /home/auralius/workspace/Azolla/src/azolla/simulation_window.H
 	<FL/Fl.H>
 	<FL/Fl_Double_Window.H>
 	<FL/Fl_Menu_Bar.H>
@@ -100,7 +98,7 @@
 	"canvas.H"
 	"world.H"
 
-1297872488 /home/auralius/workspace/Azolla/src/azolla/canvas.H
+1299690849 /home/auralius/workspace/Azolla/src/azolla/canvas.H
 	<FL/Fl.H>
 	<FL/Fl_Box.H>
 	<FL/fl_draw.H>
@@ -110,37 +108,43 @@
 	"pose.H"
 	"sensor.H"
 
-1297769653 /home/auralius/workspace/Azolla/src/azolla/configure.H
+1299912453 /home/auralius/workspace/Azolla/src/azolla/configure.H
+	<math.h>
 
-1297772156 /home/auralius/workspace/Azolla/src/azolla/point2d.H
+1299799828 /home/auralius/workspace/Azolla/src/azolla/point2d.H
 	<math.h>
 	<vector>
 
-1297849298 /home/auralius/workspace/Azolla/src/azolla/sensor.H
+1299868285 /home/auralius/workspace/Azolla/src/azolla/sensor.H
 	"point2d.H"
 
-1297588310 /home/auralius/workspace/Azolla/src/azolla/world.H
+1299692757 /home/auralius/workspace/Azolla/src/azolla/world.H
+	"configure.H"
 	<FL/Fl_Shared_Image.H>
 	<FL/Fl_PNG_Image.H>
 
-1297872499 source:/home/auralius/workspace/Azolla/src/azolla/canvas.CPP
+1300157403 source:/home/auralius/workspace/Azolla/src/azolla/canvas.CPP
 	"canvas.H"
-
-1297772155 source:/home/auralius/workspace/Azolla/src/azolla/point2d.CPP
-	"point2d.H"
-
-1297818603 source:/home/auralius/workspace/Azolla/src/azolla/sensor.CPP
-	"sensor.H"
-
-1297872260 source:/home/auralius/workspace/Azolla/src/azolla/simulation_window.CPP
-	"simulation_window.H"
-
-1297870198 source:/home/auralius/workspace/Azolla/src/azolla/world.CPP
-	"world.H"
 	"stdio.h"
 
-1297868889 source:/home/auralius/workspace/Azolla/src/main.cpp
+1298061184 source:/home/auralius/workspace/Azolla/src/azolla/point2d.CPP
+	"point2d.H"
+
+1300156826 source:/home/auralius/workspace/Azolla/src/azolla/sensor.CPP
+	"sensor.H"
+
+1300157142 source:/home/auralius/workspace/Azolla/src/azolla/simulation_window.CPP
+	"simulation_window.H"
+
+1299692767 source:/home/auralius/workspace/Azolla/src/azolla/world.CPP
+	"world.H"
+
+1300449108 source:/home/auralius/workspace/Azolla/src/main.cpp
 	"azolla/azolla.H"
 
-1297871294 /home/auralius/workspace/Azolla/src/azolla/pose.H
+1298089733 /home/auralius/workspace/Azolla/src/azolla/pose.H
+	"point2d.H"
+
+1298064715 source:/home/auralius/workspace/Azolla/src/azolla/pose.CPP
+	"pose.H"
 

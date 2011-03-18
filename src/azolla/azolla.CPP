@@ -1,25 +1,25 @@
 #include "azolla.H"
 
 
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // PROCESS
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 CAzolla::CAzolla(CSimulationWindow *w)
 {
     m_window = w;
-    m_time_step = 0.02; // Default time step
-    m_global_flag = true; // Global flag telling this class is running
-    m_first_time_flag = true;
-    m_map_update_type = 0;
     m_speed_l = 0.0;
     m_speed_r = 0.0;
-    //az_set_location(w->h()/2, w->w()/2, 0.0); // Initial position: at the center
-    az_set_location(50, w->w()/2, 0.0); // Initial position: at the center
+    m_pose0 = m_pose;                           // Initial previous robot pose
+    m_time_step = 0.02;                         // Default time step
+    m_step_num = 0;
+    m_global_flag = true;                       // Global flag,class is running
+    m_first_time_flag = true;
+    m_map_update_type = 0;
 
-    m_pose0.x = m_pose.x;
-    m_pose0.y = m_pose.y;
-    m_pose0.th = m_pose.th;
+    az_set_location(w->h()/2, w->w()/2, 0.0);   // Initial position: center
+
+    init_sim();
 }
 
 CAzolla::~CAzolla(void)
@@ -28,32 +28,10 @@ CAzolla::~CAzolla(void)
     m_global_flag = false;
 }
 
-inline void CAzolla::sonar_sensor()
-{
-
-}
-
-inline void CAzolla::lidar_sensor()
-{
-    const double factor = LIDAR_SWEEP_ANGLE / LIDAR_RAYS;
-
-    // For every sensor
-    for (int i = 0; i < LIDAR_RAYS; i++) {
-        // po = robot current position
-        // pt = laser ray farthest end point
-        CPoint2D po(m_pose.x, m_pose.y);
-        CPoint2D pt = po.translate(LIDAR_MAX,
-                                   m_pose.th +  factor * i + LIDAR_START_ANGLE);
-
-        // Input data to sensor and update its value
-        m_sensor_data[i].set_start_point(po);
-        m_sensor_data[i].set_end_point(pt);
-        m_sensor_data[i].update_value();
-    }
-}
-
 void CAzolla::az_step()
 {
+    m_step_num++;
+
     // update sensor value
     lidar_sensor();
 
@@ -63,25 +41,21 @@ void CAzolla::az_step()
     double minus_factor = m_speed_l - m_speed_r;
     double half_plus_factor = plus_factor / 2;
     double a = ROBOT_SIZE_2 * plus_factor / minus_factor;
-    double b = m_pose.th + minus_factor * m_time_step / ROBOT_SIZE;
-    double cos_theta = cos(m_pose.th);
-    double sin_theta = sin(m_pose.th);
+    double b = m_pose.th() + minus_factor * m_time_step / ROBOT_SIZE;
+    double cos_theta = cos(m_pose.th());
+    double sin_theta = sin(m_pose.th());
 
-    // Division by zero!
-    if (minus_factor != 0.0)
-    {
-        m_pose.th =  b;
-        m_pose.x += a * (sin(b) - sin_theta);
-        m_pose.y -= a * (cos(b) - cos_theta);
-    }
-    // Robot moves in staright direction
-    else
-    {
-        m_pose.x += half_plus_factor * cos_theta * m_time_step;
-        m_pose.y += half_plus_factor * sin_theta * m_time_step;
+    // Division by zero, robot moves on a straight line
+    if (std::abs(minus_factor) > 0.001) {
+        m_pose.set_th(b);
+        m_pose.set_x(m_pose.x() + a * (sin(b) - sin_theta));
+        m_pose.set_y(m_pose.y() - a * (cos(b) - cos_theta));
     }
 
-    m_window->set_robot_pos(m_pose);
+    else {
+        m_pose.set_x(m_pose.x() + half_plus_factor * cos_theta * m_time_step);
+        m_pose.set_y(m_pose.y() + half_plus_factor * sin_theta * m_time_step);
+    }
 }
 
 void CAzolla::az_log_local_map(const char *fn)
@@ -97,7 +71,7 @@ void CAzolla::az_log_local_map(const char *fn)
             f << "\n";
         } // end for y
     f.close();
-    }  // end if
+    } // end if
 }
 
 void CAzolla::az_log_global_map(const char *fn)
@@ -121,8 +95,11 @@ void CAzolla::az_log_odom(const char *fn)
     std::ofstream f(fn);
 
     if (f.is_open()) {
-        for (int i = 0; i < ODOM_SAMPLES; i ++)
-            f << m_odom[i].x << "\t" << m_odom[i].y << "\t" << m_odom[i].th << "\n";
+        for (int i = 0; i < ODOM_SAMPLES; i ++) {
+            f << m_particles[i].x() << "\t";
+            f << m_particles[i].y() << "\t";
+            f << m_particles[i].th() << "\n";
+        }
         f.close();
     }
 }
@@ -147,20 +124,24 @@ void CAzolla::az_log_sensor(const char *fn)
 
 void CAzolla::az_set_location(double x, double y, double th)
 {
-    m_pose.th = th;
-    m_pose.x = x;
-    m_pose.y = y;
-    m_window->set_robot_pos(m_pose);
+    m_pose = CPose(x * SCALE_FACTOR, y * SCALE_FACTOR, th);
+    init_odom_data();
 }
 
 void CAzolla::az_set_lspeed(double s)
 {
-    m_speed_l = s;
+    m_speed_l = s * SCALE_FACTOR;
 }
 
 void CAzolla::az_set_rspeed(double s)
 {
-    m_speed_r = s;
+    m_speed_r = s * SCALE_FACTOR;
+}
+
+void CAzolla::az_set_stop()
+{
+    m_speed_l = 0.0;
+    m_speed_r = 0.0;
 }
 
 void CAzolla::az_set_time_step(double t)
@@ -168,47 +149,60 @@ void CAzolla::az_set_time_step(double t)
     m_time_step = t;
 }
 
-void CAzolla::az_set_simulation_fn(FUN fun)
+void CAzolla::az_set_addr_particle_data(CPose *p)
 {
-    m_fun = fun;
-    init_local_map(127);
-    init_global_map(127);
-    init_odom_data();
-
-    m_window->set_addr_grid_data(m_global_map);
-    m_window->set_addr_sensor_data(m_sensor_data);
-    m_window->set_addr_odom_data(m_odom);
-
-    boost::thread sim(simulation_thread, (void*) this);
+    m_window->get_canvas()->set_addr_particle_data(p);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // GET
 ////////////////////////////////////////////////////////////////////////////////
 
+double CAzolla::az_get_sensor_data(double th)
+{
+    // Outside of range
+    if (th < LIDAR_START_ANGLE ||
+        th > LIDAR_START_ANGLE + LIDAR_SWEEP_ANGLE)
+        return 0;
+
+    // Given theta, compute sensor index
+    int index = (th - LIDAR_START_ANGLE) / LIDAR_SWEEP_ANGLE * (LIDAR_RAYS -1);
+    return m_sensor_data[index].get_value() / SCALE_FACTOR;
+}
+
 double CAzolla::az_get_lspeed()
 {
-    return m_speed_l;
+    return m_speed_l / SCALE_FACTOR;
 }
 
 double CAzolla::az_get_rspeed()
 {
-    return m_speed_r;
+    return m_speed_r / SCALE_FACTOR;
 }
 
 double CAzolla::az_get_pos_x()
 {
-    return m_pose.x;
+    return m_pose.x() / SCALE_FACTOR;
+}
+
+double CAzolla::az_get_pos_x_prev()
+{
+    return m_pose0.x() / SCALE_FACTOR;
 }
 
 double CAzolla::az_get_pos_y()
 {
-    return m_pose.y;
+    return m_pose.y() / SCALE_FACTOR;
+}
+
+double CAzolla::az_get_pos_y_prev()
+{
+    return m_pose0.y() / SCALE_FACTOR;
 }
 
 double CAzolla::az_get_angle()
 {
-    return m_pose.th;
+    return m_pose.th();
 }
 
 double CAzolla::az_get_time_step()
@@ -216,29 +210,34 @@ double CAzolla::az_get_time_step()
     return m_time_step;
 }
 
-unsigned char * CAzolla::az_get_local_map()
+unsigned char * CAzolla::az_get_local_map(bool with_error)
 {
-    calc_occ();
+    calc_occupancy(with_error);
     return m_local_map;
 }
 
-unsigned char * CAzolla::az_get_global_map1()
+unsigned char * CAzolla::az_get_global_map1(bool with_error)
 {
     m_map_update_type = 1;
-    calc_occ();
+    calc_occupancy(with_error);
     return m_global_map;
 }
 
-unsigned char * CAzolla::az_get_global_map2()
+unsigned char * CAzolla::az_get_global_map2(bool with_error)
 {
     m_map_update_type = 2;
-    calc_occ();
+    calc_occupancy(with_error);
     return m_global_map;
 }
 
-void CAzolla::az_get_odometer_data(CPose &p)
+CPose *CAzolla::az_get_odometry_data()
 {
-    //p = m_odom;
+    return m_particles;
+}
+
+int CAzolla::az_get_step_number()
+{
+    return m_step_num;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -250,39 +249,59 @@ int CAzolla::az_calc_index(int x, int y)
     return x + y * GRID_MAP_W;
 }
 
-void CAzolla::az_update_odometer()
+void CAzolla::az_update_odometry()
 {
     boost::thread odom(odometry_thread, (void*) this);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // PRIVATE MEMBERS
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+void CAzolla::init_sim()
+{
+    init_local_map(127);
+    init_global_map(127);
+    init_odom_data();
+
+    m_window->get_canvas()->set_addr_robot_pose(&m_pose);
+    m_window->get_canvas()->set_addr_grid_data(m_global_map);
+    m_window->get_canvas()->set_addr_sensor_data(m_sensor_data);
+    m_window->get_canvas()->set_addr_particle_data(m_particles);
+
+    boost::thread sim(simulation_thread, (void*) this);
+}
 
 void CAzolla::simulation_thread(void *param)
 {
-
     CAzolla *o = (CAzolla*)param;
     o->simulation_thread_worker();
-
 }
 
 void CAzolla::simulation_thread_worker()
 {
     while (m_global_flag) {
         if (m_window->get_simulation_flag()) {
-            // At first iteration only, tell the sensor binary map it has to scan.
+            // Do these at first time of the iteration only:
+            //  tell the sensor the binary map it has to scan
+            //  record robot initial pose
+            //  initialize odometry data
+            //  initialize sensor value
             if (m_first_time_flag) {
                 for (int i = 0; i < LIDAR_RAYS; i++)
-                    m_sensor_data[i].bit_map_to_scan(m_window->w(),
-                                                     m_window->h(),
-                                                     m_window->get_binary_map());
+                    m_sensor_data[i].binary_map_to_scan(m_window->w(),
+                                                        m_window->h(),
+                                                        m_window->get_binary_map());
+                    m_pose0 = m_pose;
+                    init_odom_data();
+                    m_step_num = 0;
+                    lidar_sensor();
 
                 m_first_time_flag = false;
-            } // end i
-
-            m_fun(this);
+            } // end if
+            az_sim_fn();
         } // end if
+
         else
             m_first_time_flag = true;
 
@@ -298,11 +317,11 @@ void CAzolla::odometry_thread(void *param)
 
 void CAzolla::odometry_thread_worker()
 {
-    // We should store the data first to local vaiables since this function is a
+    // We should store the data first to local vaiables since this function is
     // a separated thread.
-    double x = m_pose.x;
-    double y = m_pose.y;
-    double th = m_pose.th;
+    double x = m_pose.x();
+    double y = m_pose.y();
+    double th = m_pose.th();
 
     // Random number generator
     // Using generator: "lagged_fibonacci607"
@@ -310,9 +329,9 @@ void CAzolla::odometry_thread_worker()
     boost::lagged_fibonacci607 rng(static_cast<unsigned int>(std::time(0)));
 
     // How far the robot moved at last 1 time sampling
-    double dx = x - m_pose0.x;
-    double dy = y - m_pose0.y;
-    double dth = th - m_pose0.th;
+    double dx = x - m_pose0.x();
+    double dy = y - m_pose0.y();
+    double dth = th - m_pose0.th();
     double dp  = sqrt(dx * dx + dy * dy);
 
     // Normal distribution
@@ -320,9 +339,15 @@ void CAzolla::odometry_thread_worker()
     boost::normal_distribution<double> Edrft(MD * dp, KD * dp);
     boost::normal_distribution<double> Erot(MR * dp, KR * std::abs(dth));
 
-    boost::variate_generator<boost::lagged_fibonacci607&, boost::normal_distribution<double> > vgtrs(rng, Etrs);
-    boost::variate_generator<boost::lagged_fibonacci607&, boost::normal_distribution<double> > vgdrft(rng, Edrft);
-    boost::variate_generator<boost::lagged_fibonacci607&, boost::normal_distribution<double> > vgrot(rng, Edrft);
+    boost::variate_generator<boost::lagged_fibonacci607&,
+                             boost::normal_distribution<double>
+                            > vgtrs(rng, Etrs);
+    boost::variate_generator<boost::lagged_fibonacci607&,
+                            boost::normal_distribution<double>
+                            > vgdrft(rng, Edrft);
+    boost::variate_generator<boost::lagged_fibonacci607&,
+                             boost::normal_distribution<double>
+                             > vgrot(rng, Edrft);
 
     for (int i = 0; i < ODOM_SAMPLES; i++) {
         // TODO: Validate the generated random numbers!!!
@@ -330,16 +355,101 @@ void CAzolla::odometry_thread_worker()
         double drft = vgdrft();
         double rot = vgrot();
 
-        m_odom[i].th = m_odom[i].th + dth + rot;
-        m_odom[i].th = m_odom[i].th + drft;
-        m_odom[i].x = m_odom[i].x + (dp + trs) * cos(m_odom[i].th);
-        m_odom[i].y = m_odom[i].y + (dp + trs) * sin(m_odom[i].th);
-    } // end for i
+        m_particles[i].set_th(m_particles[i].th() + dth + rot);
+        m_particles[i].set_th(m_particles[i].th() + drft);
+        m_particles[i].set_x(m_particles[i].x() + (dp + trs) * cos(m_particles[i].th()));
+        m_particles[i].set_y(m_particles[i].y() + (dp + trs) * sin(m_particles[i].th()));
+    }
 
     // Store previous robot pose
-    m_pose0.x = x;
-    m_pose0.y = y;
-    m_pose0.th = th;
+    m_pose0 = CPose(x, y, th);
+}
+
+void CAzolla::sonar_sensor()
+{
+
+}
+
+void CAzolla::lidar_sensor()
+{
+    const double factor = LIDAR_SWEEP_ANGLE / LIDAR_RAYS;
+    CPoint2D po(0,0); // po = robot current position, where the sensors located
+    CPoint2D pt(0,0); // pt = laser ray farthest end point
+
+    // For every sensor
+    for (int i = 0; i < LIDAR_RAYS; i++) {
+        po = CPoint2D(m_pose.x(), m_pose.y());
+        pt = po.translate(LIDAR_MAX,
+                          m_pose.th() +  factor * i + LIDAR_START_ANGLE);
+
+        // Input data to sensor and update its value
+        m_sensor_data[i].set_start_point(po);
+        m_sensor_data[i].set_end_point(pt);
+        m_sensor_data[i].update_value();
+    }
+}
+
+void CAzolla::calc_occupancy(bool with_error)
+{
+    // Compute occupancy probability of all bresenham points of each ray.
+    // If sensor actual value is s, then r is distance form a bresenham point
+    // to s, and OCC = exp(-0.5 * r ^2 / var^2).
+
+    // Initialize with probabilty of 127, which means 0.5
+    init_local_map(127);
+
+    const double factor = LIDAR_SWEEP_ANGLE / LIDAR_RAYS;
+    CPoint2D po(0,0); // po = robot current position, where the sensors located
+    CPoint2D pt(0,0); // pt = laser ray farthest end point
+    CPoint2D ph(0,0); // ph = sensor hit point
+
+    // Fore every ray
+    for (int i = 0; i < LIDAR_RAYS; i++) {
+        // Handle error on odometry which will affect mapping
+        if (with_error) {
+            double th = m_particles[CHOSEN_PARTICLE].th() +  factor * i + LIDAR_START_ANGLE;
+            po = m_particles[CHOSEN_PARTICLE];
+            pt = po.translate(LIDAR_MAX, th);
+            ph = po.translate(m_sensor_data[i].get_value(), th);
+            m_sensor_data[i].set_start_point(po);
+            m_sensor_data[i].set_end_point(pt);
+            m_sensor_data[i].set_hit_point(ph);
+            m_sensor_data[i].bresenham_line();
+        }
+
+        const std::vector<CPoint2D> br_pt_vect = m_sensor_data[i].get_br_pt();
+        const double dist = m_sensor_data[i].get_value();
+
+        // Compute probability for every bresenham point
+        for (int j = 0; j < br_pt_vect.size(); j++) {
+            // TODO : Check again this part!!!
+            double r = m_sensor_data[i].get_br_dist_to_hit_pt(j);
+            unsigned char occ = (unsigned char) (exp(-0.5*r*r/LIDAR_VAR_2) * 255.0);
+
+            if  (m_sensor_data[i].get_br_dist_to_start_pt(j) > dist && occ >= 0.5)
+                break;
+
+            int x = br_pt_vect.at(j).x();
+            int y = br_pt_vect.at(j).y();
+            int index = x + y * GRID_MAP_W;
+
+            //if (index >= 0 && index < m_window->get_area()) {
+                m_local_map[x + y * GRID_MAP_W] = occ;
+                update_global_map(x, y, occ);
+            //} //end if
+        } // end for j
+    } // end for i
+
+    m_map_update_type = 0;
+}
+
+inline void CAzolla::update_global_map(int x, int y, unsigned char occ)
+{
+    if (m_map_update_type == 1)
+        m_global_map[x + y * GRID_MAP_W] = occ;
+
+    else if (m_map_update_type == 2)
+        m_global_map[x + y * GRID_MAP_W] *= occ;
 }
 
 inline void CAzolla::init_local_map(unsigned char v)
@@ -358,55 +468,6 @@ inline void CAzolla::init_global_map(unsigned char v)
 
 inline void CAzolla::init_odom_data()
 {
-    for (int i = 0; i < ODOM_SAMPLES; i++) {
-        m_odom[i].x = m_pose.x;
-        m_odom[i].y = m_pose.y;
-        m_odom[i].th = m_pose.th;
-    }
-}
-
-inline void CAzolla::calc_occ()
-{
-    // Compute occupancy probability of all bresenham points of each ray.
-    // If sensor actual value is s, then r is distance form a bresenham point
-    // to s, and OCC = exp(-0.5 * r ^2 / var^2).
-
-    // Initialize with probabilty of 127, which means 0.5
-    init_local_map(127);
-
-    // Fore every ray
-    for (int i = 0; i < LIDAR_RAYS; i++) {
-        const std::vector<CPoint2D> br_pt_vect = m_sensor_data[i].get_br_pt();
-        const double dist = m_sensor_data[i].get_value();
-
-        // Compute probability for every bresenham point
-        for (int j = 0; j < br_pt_vect.size(); j++) {
-            // TODO : Check again this part!!!
-            if  (m_sensor_data[i].get_br_dist_to_start_pt(j) > dist + LIDAR_VAR_2)
-                break;
-
-            double r = m_sensor_data[i].get_br_dist_to_hit_pt(j);
-            unsigned char occ = (unsigned char) (exp(-0.5*r*r/LIDAR_VAR_2) * 255.0);
-
-            int x = br_pt_vect.at(j).x();
-            int y = br_pt_vect.at(j).y();
-            int index = x + y * GRID_MAP_W;
-
-            if (index >= 0 && index < m_window->get_area()) {
-                m_local_map[x + y * GRID_MAP_W] = occ;
-                update_global_map(x, y, occ);
-            } //end if
-        } // end for j
-    } // end for i
-
-    m_map_update_type = 0;
-}
-
-inline void CAzolla::update_global_map(int x, int y, unsigned char occ)
-{
-    if (m_map_update_type == 1)
-        m_global_map[x + y * GRID_MAP_W] = occ;
-
-    else if (m_map_update_type == 2)
-        m_global_map[x + y * GRID_MAP_W] *= occ;
+    for (int i = 0; i < ODOM_SAMPLES; i++)
+        m_particles[i] = m_pose;
 }

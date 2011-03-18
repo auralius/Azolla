@@ -1,6 +1,12 @@
-//
-// auralius (auralius@gmx.com)
-//
+/**
+*  @file   simulation_window.H
+*  @brief  Class for simulation window
+*  @author Auralius Manurung <auralius@gmx.com>
+*  @date   2/19/2011
+*/
+
+#ifndef SIMULATION_WINDOW_H_
+#define SIMULATION_WINDOW_H_
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -22,12 +28,7 @@ public:
     int get_simulation_speed();
     const bool *get_binary_map();
     int get_area();
-
-    void set_robot_pos(CPose &p);
-    void set_addr_sensor_data(CSensor *p);
-    void set_addr_grid_data(unsigned char *p);
-    void set_addr_odom_data(CPose *p);
-
+    CCanvas *get_canvas();
 
 private:
     void window_configuration();
@@ -42,3 +43,5 @@ private:
     Fl_Menu_Bar *m_menu;
     Fl_RGB_Image *m_image;
 };
+
+#endif // SIMULATION_WINDOW_H_

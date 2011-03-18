@@ -16,6 +16,16 @@ CPoint2D::~CPoint2D(void)
 {
 }
 
+void CPoint2D::set_x(double x)
+{
+    m_x = x;
+}
+
+void CPoint2D::set_y(double y)
+{
+    m_y = y;
+}
+
 const CPoint2D CPoint2D::operator+(const CPoint2D &other) const
 {
     return CPoint2D(m_x + other.x(), m_y + other.y());

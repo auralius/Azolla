@@ -1,5 +1,4 @@
 #include "world.H"
-#include "stdio.h"
 
 CWorld::CWorld()
 {
@@ -13,20 +12,31 @@ CWorld::CWorld(const char * f)
     m_width = map.w();
     m_height = map.h();
 
+    // Create dynamic memory allocation
     m_gs_map = new unsigned char[m_width * m_height];
     m_binary_map = new bool [m_width * m_height];
 
+    // Convert to grayscale
     const unsigned char *datap = (const unsigned char *) map.data()[0];
     unsigned char r,g,b;
 
-    // Convert to grayscale
     for ( int y = 0; y < map.h(); y++ ) {
         for ( int x = 0; x < map.w(); x++ ) {
             long index = (y * map.w() * map.d()) + (x * map.d());
             r = *(datap+index+0);
             g = *(datap+index+1);
             b = *(datap+index+2);
-            m_gs_map[x + y * m_width] = 0.30 * r + 0.59 * g + 0.11 * b;
+
+            if ((0.30 * r + 0.59 * g + 0.11 * b) > 127) // Treshold color
+                m_gs_map[x + y * m_width] = 255;        // White (empty)
+            else
+                m_gs_map[x + y * m_width] = 0;          // Black (objects)
+
+            // Unit grid (1 grid square = 1 meter square)
+            if (x % (int) SCALE_FACTOR == 0)
+                m_gs_map[x + y * m_width] = 200;
+            if (y % (int) SCALE_FACTOR == 0)
+                m_gs_map[x + y * m_width] = 200;
 
             // Thin border on the 4 edges of the window
             if (y < 23 )
@@ -40,7 +50,7 @@ CWorld::CWorld(const char * f)
         }
     }
 
-    // 1 bit map
+    // Create binary map
     for ( int y = 0; y < map.h(); y++ ) {
         for ( int x = 0; x < map.w(); x++ ) {
             if (m_gs_map[x + y * m_width] >= 127)
@@ -50,11 +60,11 @@ CWorld::CWorld(const char * f)
         }
     }
 
-    // Add light gray as background color to representate unknown area
+    // Add gray as background color to representate unknown area
     for ( int y = 0; y < map.h(); y++ ) {
         for ( int x = 0; x < map.w(); x++ ) {
             if (m_gs_map[x + y * m_width] >= 254)
-                m_gs_map[x + y * m_width] = 200; // Light gray
+                m_gs_map[x + y * m_width] = 127; // Gray
         }
     }
 }

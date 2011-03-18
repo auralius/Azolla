@@ -41,6 +41,7 @@
 		<Unit filename="../../src/azolla/configure.H" />
 		<Unit filename="../../src/azolla/point2d.CPP" />
 		<Unit filename="../../src/azolla/point2d.H" />
+		<Unit filename="../../src/azolla/pose.CPP" />
 		<Unit filename="../../src/azolla/pose.H" />
 		<Unit filename="../../src/azolla/sensor.CPP" />
 		<Unit filename="../../src/azolla/sensor.H" />

@@ -1,1 +1,6 @@
 Azolla is a development framework for mobile robot simulation using C++ language. Azzola is designed by emphasizing on simulation for probabilistic robotics. Its features are including: odometry, occupancy algorithm, mapping, and also localization.  The main goal for this simulator software development is to develop a simple 2D mobile robot simulator for testing even a sophisticated algorithm. The specific goals are to build a multi platform and lightweight mobile robot simulator which is easy to use.
+
+Brief guidance on how to use can be found at:
+https://sites.google.com/site/auraliusproject/new-azolla
+http://www.metacafe.com/watch/6116481/azolla_probabilistic_mobile_robot_simulator/
+http://www.metacafe.com/watch/6119742/brief_guidance_on_using_azolla_mobile_robot_simulator/

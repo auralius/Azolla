@@ -4,25 +4,34 @@
 
 #include "azolla/azolla.H"
 
-int i = 0;
-
-void my_sim(CAzolla *p)
+class CMyRobot : public CAzolla
 {
-    p->az_set_lspeed(4.7);
-    p->az_set_rspeed(5);
-    p->az_step();
-
-    if (i == 100)
+public:
+    CMyRobot(CSimulationWindow *w)
+    :CAzolla(w)
     {
-        p->az_get_global_map1();
-        p->az_update_odometer();
-        p->az_log_sensor("test.txt");
-        i = 0;
-    }
-    i++;
-}
 
+    }
+
+    virtual void az_sim_fn()
+    {
+        az_step();
+
+        double front = az_get_sensor_data(0);
+        if (front > 0.1) {
+            az_set_lspeed(0.1);
+            az_set_rspeed(0.1);
+        }
+        else
+            az_set_stop();
+
+    }
+};
+
+///////////////////////////////////////////////////////////////////////////////
 // MAIN
+///////////////////////////////////////////////////////////////////////////////
+
 int main()
 {
     CSimulationWindow win(600, 600,"azolla1");
@@ -30,9 +39,7 @@ int main()
     win.end();
     win.show();
 
-    CAzolla robot(&win);
-    robot.az_set_simulation_fn(my_sim);
-    //robot.az_set_location(200,100,0);
+    CMyRobot robot(&win);
 
     return(Fl::run());
 }
