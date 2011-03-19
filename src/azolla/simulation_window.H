@@ -15,6 +15,7 @@
 #include <FL/fl_ask.H>
 #include <FL/Fl_Bitmap.H>
 
+#include "configure.H"
 #include "canvas.H"
 #include "world.H"
 

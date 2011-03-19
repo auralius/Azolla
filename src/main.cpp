@@ -24,7 +24,6 @@ public:
         }
         else
             az_set_stop();
-
     }
 };
 

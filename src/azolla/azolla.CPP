@@ -305,7 +305,11 @@ void CAzolla::simulation_thread_worker()
         else
             m_first_time_flag = true;
 
-        usleep(m_window->get_simulation_speed());
+#		ifdef WIN32
+			Sleep(m_window->get_simulation_speed());
+#		else
+			usleep(m_window->get_simulation_speed());
+#		endif
     } // end while
 }
 

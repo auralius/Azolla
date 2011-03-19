@@ -8,8 +8,7 @@
 #ifndef CONFIGURE_H_
 #define CONFIGURE_H_
 
-#include <math.h>
-
+#include <FL/math.h>
 
 /// Scale, 1 meter equals to how many pixels?
 const double    SCALE_FACTOR = 192.0;
@@ -50,8 +49,15 @@ const double    MR              = 0.0;                  // Rotation error mean
 
 /// Time delay for simulation,
 /// accessed from menu bar: Simulation >> Speed >> Slow/Medium/Fast
-#define SLOW     200
-#define MEDIUM   50
-#define FAST     20
+
+#ifdef WIN32
+	#define SLOW     20
+	#define MEDIUM   10
+	#define FAST     0
+#else
+	#define SLOW     200
+	#define MEDIUM   50
+	#define FAST     20
+#endif // WIN32
 
 #endif // CONFIGURE_H_
