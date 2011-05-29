@@ -1,5 +1,5 @@
-#include "pose.H"
 
+#include "pose.H"
 
 CPose::CPose(double x, double y, double th)
 {
@@ -13,17 +13,22 @@ void CPose::set_th(double th)
     m_th = th;
 }
 
-const CPose CPose::operator+(const CPose &other) const
+double CPose::th() const
 {
-    return CPose(m_x + other.x(), m_y + other.y(), m_th + other.th());
+    return m_th;
 }
 
-const CPose CPose::operator-(const CPose &other) const
+const CPose CPose::operator -(const CPose & other) const
 {
     return CPose(m_x - other.x(), m_y - other.y(), m_th - other.th());
 }
 
-CPose& CPose::operator=(const CPose& other)
+const CPose CPose::operator +(const CPose & other) const
+{
+    return CPose(m_x + other.x(), m_y + other.y(), m_th + other.th());
+}
+
+CPose & CPose::operator =(const CPose & other)
 {
     if (this == &other) // Check for self assignment!
         return *this;
@@ -34,7 +39,3 @@ CPose& CPose::operator=(const CPose& other)
     return *this;
 }
 
-double CPose::th() const
-{
-    return m_th;
-}

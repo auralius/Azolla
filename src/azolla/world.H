@@ -1,6 +1,6 @@
 /**
 *  @file   world.H
-*  @brief  Load and convert PNG map file into grayscale and binay map
+*  @brief  Contains class to process map file
 *  @author Auralius Manurung <auralius@gmx.com>
 *  @date   2/19/2011
 */
@@ -15,20 +15,58 @@
 class CWorld
 {
 public:
-    CWorld ();
-    CWorld (const char * f);
+	/**
+	 * Constructor
+	 * @param f Map file name (PNG file)
+	 * @param cfg Robot configuration
+	 */
+    CWorld (const char * f, const AZ_CONFIG *cfg);
+
+    /**
+     * Destructor.
+     */
     ~CWorld(void);
+
+    /**
+     * Get loaded map in C-style array of char.
+     * @return Map as an array of char
+     */
     unsigned char *get_map();
+
+    /**
+	 * Get binary version of loaded map.
+	 * @return Map as an array of boolean
+	 */
     bool *get_binary_map();
+
+    /**
+     * Get map height.
+     * @return Map height (still in pixels)
+     */
     int get_height();
+
+    /**
+     * Get map 	width.
+     * @return Map width (still in pixels)
+     */
     int get_width();
 
 private:
+	/// World width.
     int m_width;
+
+	/// World height.
     int m_height;
 
-    unsigned char *m_gs_map; // Greyscaled map for display
-    bool *m_binary_map;  // 1 bit map for object detection
+	/// Greyscaled map for display.
+    unsigned char *m_gs_map;
+
+	/// 1 bit binary map for object detection.
+    bool *m_binary_map;
+
+	/// Pointer to m_cfg in CAZolla which contains all robot parameters.
+	const AZ_CONFIG *m_cfg;
+
 };
 
 #endif // WORLD_H_

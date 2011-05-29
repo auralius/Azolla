@@ -1,9 +1,9 @@
 /**
-*  @file   sensor.H
-*  @brief  Class for distance sensor
-*  @author Auralius Manurung <auralius@gmx.com>
-*  @date   2/19/2011
-*/
+ *  @file   sensor.H
+ *  @brief  Contains class for the distance sensor
+ *  @author Auralius Manurung <auralius@gmx.com>
+ *  @date   2/19/2011
+ */
 
 #ifndef SENSOR_H_
 #define SENSOR_H_
@@ -14,6 +14,9 @@
 class CSensor
 {
 public:
+	/**
+	 * Constructor
+	 */
     CSensor(void);
 
     /**
@@ -24,7 +27,7 @@ public:
 
     /**
      * Update sensor value, this function must be called after m_start_pt and
-     * m_end_pt values has been set. This function will update the value of
+     * m_end_pt values have been set. This function will update the value of
      * m_hit_pt and m_raw_value.
      */
     void update_value();
@@ -120,18 +123,37 @@ public:
     const std::vector<CPoint2D> &get_br_pt();
 
 private:
+    /// Sensor start point.
     CPoint2D m_start_pt;
+
+    /// Sensor end point.
     CPoint2D m_end_pt;
+
+    /// A location where the sensor line segment crossed an object.
     CPoint2D m_hit_pt;
+
+    /// Collection of Bresenham points along sensor line segment.
     std::vector<CPoint2D> m_bresenham_pt;
 
+    /// Binary map of the environment.
     const bool *m_binary_map;
+
+    /// Map width
     int m_w;
+
+    /// Map height
     int m_h;
+
+    /// Map area size
     int m_area;
 
+    /// Measured distance
     double m_raw_value;
+
+    /// Noise value
     double m_noise;
+
+    /// Add with noise or not?
     bool m_noise_flag;
 };
 

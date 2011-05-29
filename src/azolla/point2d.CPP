@@ -1,9 +1,9 @@
 #include "point2d.H"
 
-CPoint2D::CPoint2D(double X, double Y)
+CPoint2D::CPoint2D(double x, double y)
 {
-    m_x = X;
-    m_y = Y;
+    m_x = x;
+    m_y = y;
 }
 
 CPoint2D::CPoint2D(const CPoint2D &p)

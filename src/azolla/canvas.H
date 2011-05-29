@@ -1,9 +1,9 @@
 /**
-*  @file   simulation_window.H
-*  @brief  Canvas where eveything is drawn
-*  @author Auralius Manurung <auralius@gmx.com>
-*  @date   2/19/2011
-*/
+ *  @file   canvas.H
+ *  @brief  Contains class for drawing
+ *  @author Auralius Manurung <auralius@gmx.com>
+ *  @date   2/19/2011
+ */
 
 #ifndef CANVAS_H_
 #define CANVAS_H_
@@ -21,7 +21,15 @@
 class CCanvas:public Fl_Box
 {
 public:
-    CCanvas(int x, int y, int w,int h,const char *l);
+   /**
+	* Constructor.
+	* @param x Canvas left corner x position
+	* @param y Canvas left corner y position
+	* @param w Canvas width
+	* @param h Canvas height
+	* @param l Text, this ext will be printed in the center of the canvas
+	*/
+    CCanvas(int x, int y, int w, int h, const char *l);
 
     /**
      * Set drawing mode to
@@ -32,68 +40,80 @@ public:
     void set_drawing_mode(int m);
 
     /**
-     * Set pointer m_pose to point to m_pose in CAzolla
+     * Set pointer m_pose to point to m_pose in CAzolla.
      * @param p Pointer to m_pose in CAzolla
      */
     void set_addr_robot_pose(CPose *p);
 
     /**
-     * Set pointer m_sensor_data to point to m_sensor_data in CAzolla
+     * Set pointer m_sensor_data to point to m_sensor_data in CAzolla.
      * @param p Pointer to m_sensor_data in CAzolla
      */
     void set_addr_sensor_data(CSensor *p);
 
     /**
-     * Set pointer m_grid_map to point to m_global_map in CAzolla
+     * Set pointer m_grid_map to point to m_global_map in CAzolla.
      * @param p Pointer to m_global_map in CAzolla
      */
     void set_addr_grid_data(unsigned char *p);
 
     /**
-     * Set pointer m_particles to point to m_particles in CAzolla
+     * Set pointer m_particles to point to m_particles in CAzolla.
      * @param p Pointer to m_particles in CAzolla
      */
     void set_addr_particle_data(CPose *p);
 
+	/**
+     * Set pointer m_cfg to point to m_cfg in CAzolla.
+     * @param p Pointer to m_cfg in CAzolla
+     */
+	void set_cfg_data(const AZ_CONFIG *cfg);
+
     /**
-     * Notify if simulation is running, this is done by CSimulationWindow
+     * Notify if simulation is running, this is done by CSimulationWindow.
      * @param s Flag for simulation
      */
     void notify_simulation_status(bool s);
 
 private:
-    /// Handle mouse click event to change robot position
+    /// Handle mouse click event to change robot position.
     int handle(int e) ;
 
-    /// Callback function when redraw() is called
+    /// Callback function when redraw() is called.
     void draw();
 
-    /// Timer callback, used to call redraw()
+    /// Timer callback, used to call redraw().
     static void timeout_cb(void *userdata);
 
-    /// Draw the robot
+    /// Draw the robot.
     void draw_robot();
 
     /// Draw sensor hitmark and grid occupancy
     void draw_sensor_beam();
 
-    /// Draw robot position sensed by odometer
+    /// Draw robot position sensed by odometer.
     void draw_odom();
 
-    /// We have 2 drawing mode: sensor strike and grid memory
+    /// We have 2 drawing mode: sensor strike and grid memory.
     int m_drawing_mode;
 
-    /// If simulation is running, mouse click event should be disabled
+    /// If simulation is running, mouse click event should be disabled.
     bool m_simulation_running;
 
-    /// These data are going to be drawn
-    /// Robot parameters: x, y and angular position, also incluiding sensor,
-    /// grid occupancy map and noisy odometry data. All data are pointers
-    /// which point to the real data at class CAzolla (sharing same data).
-    CPose           *m_pose;
-    CSensor         *m_sensor_data;
-    unsigned char   *m_grid_map;
-    CPose           *m_particles;
+    /// Robot, map, and simulation configuration.
+    const AZ_CONFIG	*m_cfg;
+
+	/**
+     * Below are the data needed for drawing purpose
+     * Robot current position (x, y and angular position), also incluiding
+	 * sensor,grid occupancy map and noisy odometry data. All data are
+	 * pointers which point to the real data at class CAzolla
+	 * (sharing same data).
+	 */
+    CPose *m_pose;
+    CSensor *m_sensor_data;
+    unsigned char *m_grid_map;
+    CPose *m_particles;
 };
 
 #endif // CANVAS_H_

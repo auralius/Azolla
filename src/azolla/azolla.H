@@ -1,13 +1,14 @@
 /**
-*  @file   azolla.H
-*  @brief  Contains all available commands to the robot.
-*  @author Auralius Manurung <auralius@gmx.com>
-*  @date   2/19/2011
-*/
+ *  @file   azolla.H
+ *  @brief  Contains all available commands to the robot.
+ *  @author Auralius Manurung <auralius@gmx.com>
+ *  @date   2/19/2011
+ */
 
 #ifndef AZOLLA_H_
 #define AZOOLA_H_
 
+#include "configure.H"
 #include "simulation_window.H"
 
 #include <boost/thread.hpp>
@@ -24,10 +25,21 @@ public:
     // Process
 
     /**
-     * Constructor and destructor.
+     * Constructor
      */
     CAzolla(CSimulationWindow *w);
+
+	/**
+     * Destructor
+     */
     ~CAzolla(void);
+
+    /**
+     * Read configuration file.
+     * @param fn Configuration file name
+     * @return 0 if it is successfull, else return -1
+     */
+    int az_read_config_file(const char *fn);
 
     /**
      * Update robot pose and sensor reading.
@@ -223,15 +235,13 @@ public:
     int az_calc_index(int x, int y);
 
 private:
-    /// Prepare everything needed for simulation and create thread
-    /// for simulation: simulation_thread.
+    /// Prepare everything needed for simulation.
     void init_sim();
 
     /// Static function to call simulation_thread_worker.
     static void simulation_thread(void* param);
 
-    /// A thread to handle simulation, this thread will execute function
-    /// az_sim_fn.
+    /// A thread to handle simulation, this thread executes az_sim_fn.
     void simulation_thread_worker();
 
     /// Static function to odometry_thread_worker
@@ -258,8 +268,7 @@ private:
     /// Initialize all of the odometry data (all of the the particles).
     inline void init_odom_data();
 
-    /// Update a certain cell of the global map with a certain
-    /// occupancy probability.
+    /// Update a cell in the global map with a certain occupancy probability.
     inline void update_global_map(int x, int y, unsigned char occ);
 
     /// Provide acces to simulation window.
@@ -278,27 +287,34 @@ private:
     CPose m_pose0;
 
     /// Storage for noisy odometry data (particles).
-    CPose m_particles[ODOM_SAMPLES];
+    CPose *m_particles;
 
     /// Simulation time step.
     double m_time_step;
-    /// Number of simulation steps that happened.
+
+    /// Number of simulation steps that already happened so far.
     int m_step_num;
 
     /// Flag to see if this class has been loaded.
     bool m_global_flag;
+
     /// First time iteration of the simulation loop.
     bool m_first_time_flag;
 
     /// Sensor reading data.
-    CSensor m_sensor_data[LIDAR_RAYS];
+    CSensor *m_sensor_data;
 
     /// Local map contains current occupancy reading.
-    unsigned char m_local_map[GRID_MAP_W * GRID_MAP_H];
+    unsigned char *m_local_map;
+
     /// Robot memory containg overall grid occupancy data.
-    unsigned char m_global_map[GRID_MAP_W * GRID_MAP_H];
+    unsigned char *m_global_map;
+
     /// Global map update type.
     int m_map_update_type;
+
+    /// Robot, map, and simulation configuration.
+    AZ_CONFIG m_cfg;
 };
 
 #endif // AZOLLA_H_

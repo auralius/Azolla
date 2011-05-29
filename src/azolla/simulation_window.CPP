@@ -12,7 +12,7 @@ CSimulationWindow::CSimulationWindow(int w,int h,const char *l)
     m_menu = new Fl_Menu_Bar(0, 0, m_canvas->w(), 25);
     m_image = NULL;
 
-    window_configuration();
+	build_menu();
 }
 
 CSimulationWindow::~CSimulationWindow(void)
@@ -65,7 +65,7 @@ CCanvas *CSimulationWindow::get_canvas()
 // PRIVATE MEMBERS
 ///////////////////////////////////////////////////////////////////////////////
 
-void CSimulationWindow::window_configuration()
+void CSimulationWindow::build_menu()
 {
     // Menu bar
     m_menu->add("File/Open map...", FL_CTRL + 'o', menu_cb, (void*)this);
@@ -122,7 +122,7 @@ void CSimulationWindow::menu_cb_worker()
         }
 
         // Load the map image file to memory
-        m_world = new CWorld(file_name);
+        m_world = new CWorld(file_name, m_cfg);
         m_image = new Fl_RGB_Image(m_world->get_map(), m_world->get_width(), m_world->get_height(), 1);
 
         // Resize the window to follow the size of the map
@@ -195,4 +195,11 @@ void CSimulationWindow::menu_cb_worker()
     {
         fl_message("Azolla 0.0.1\nMobile Robot Simulator\nAuralius Manurung\n(auralius at gmx.com)");
     }
+}
+
+void CSimulationWindow::set_cfg_data(const AZ_CONFIG *cfg)
+{
+	// Set m_cfg in CSimulaitonWindow and in CCanvas to point m_cfg in CAzolla
+	m_cfg = cfg;
+	m_canvas->set_cfg_data(cfg);
 }

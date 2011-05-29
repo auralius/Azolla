@@ -10,7 +10,7 @@ public:
     CMyRobot(CSimulationWindow *w)
     :CAzolla(w)
     {
-
+		az_read_config_file("../../src/azolla.CFG");
     }
 
     virtual void az_sim_fn()
