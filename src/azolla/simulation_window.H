@@ -1,9 +1,9 @@
 /**
-*  @file   simulation_window.H
-*  @brief  Contains class for simulation window
-*  @author Auralius Manurung <auralius@gmx.com>
-*  @date   2/19/2011
-*/
+ *  @file   simulation_window.H
+ *  @brief  Contains class for simulation window
+ *  @author Auralius Manurung <auralius@gmx.com>
+ *  @date   2/19/2011
+ */
 
 #ifndef SIMULATION_WINDOW_H_
 #define SIMULATION_WINDOW_H_

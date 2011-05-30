@@ -18,3 +18,12 @@ https://sites.google.com/site/auraliusproject/new-azolla
 http://www.metacafe.com/watch/6116481/azolla_probabilistic_mobile_robot_simulator/
 http://www.metacafe.com/watch/6119742/brief_guidance_on_using_azolla_mobile_robot_simulator/
 
+HOW TO INSTALL (Linux):
+- First install FLTK libraries and Boost libraries.
+- Make sure you have Codeblocks installed.
+- Open  folder build/codeblocks and open file Azolla.cbp using Codeblocks.
+
+I have provided VS project file for Windows users but I haven't updated it 
+sine last modification. I also plan to create a makefile.
+
+

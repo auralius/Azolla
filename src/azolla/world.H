@@ -1,9 +1,9 @@
 /**
-*  @file   world.H
-*  @brief  Contains class to process map file
-*  @author Auralius Manurung <auralius@gmx.com>
-*  @date   2/19/2011
-*/
+ *  @file   world.H
+ *  @brief  Contains class to process map file
+ *  @author Auralius Manurung <auralius@gmx.com>
+ *  @date   2/19/2011
+ */
 
 #ifndef WORLD_H_
 #define WORLD_H_
