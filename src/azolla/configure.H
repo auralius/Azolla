@@ -13,11 +13,26 @@
 #include "config_struct.H"
 #include "config.H"
 
-/**
-  * Time delay for simulation,
-  * accessed from menu bar: Simulation >> Speed >> Slow/Medium/Fast
-  */
 
+/// Drawing mode
+enum DrawingMode
+{
+	AZ_DRAW_SENSOR_STRIKE = 1,
+	AZ_DRAW_GRID_MAP
+};
+
+
+/**
+ * To activate 3D view feature, OpenGL must used.
+ * Disable this definition to use OpenGL
+ */
+//#define NO_OPENGL
+
+
+/**
+ * Time delay for simulation,
+ * accessed from menu bar: Simulation >> Speed >> Slow/Medium/Fast
+ */
 #ifdef WIN32
 	#define SLOW     20
 	#define MEDIUM   10

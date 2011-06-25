@@ -8,6 +8,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+#include <stdlib.h>
 #include <fstream>
 #include <set>
 
@@ -21,9 +22,27 @@ using namespace std;
 class CConfig
 {
 public:
+	/**
+	 * Constructor.
+	 */
     CConfig(void );
+
+    /**
+     * Destructor.
+     */
     ~CConfig(void );
+
+    /**
+     * Read configuration file.
+     * @param fn Configuration file name
+     * @return 0 if successful otherwise return -1
+     */
     int read_config_file(const char * fn);
+
+    /**
+     * These all are data getters, used to get specific data from
+     * loaded configuration file.
+     */
     double get_scale_factor();
     double get_time_out();
     double get_robot_radius();

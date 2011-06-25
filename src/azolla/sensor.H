@@ -9,7 +9,7 @@
 #define SENSOR_H_
 
 #include "point2d.H"
-
+#include "stdlib.h"
 
 class CSensor
 {

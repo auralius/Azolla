@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../../src/azolla/azolla.CPP" open="1" top="0" tabpos="2">
-		<Cursor position="8017" topLine="308" />
+	<File name="../../src/azolla/azolla.CPP" open="1" top="0" tabpos="3">
+		<Cursor position="15184" topLine="479" />
 	</File>
-	<File name="../../src/azolla/azolla.H" open="1" top="0" tabpos="4">
-		<Cursor position="212" topLine="0" />
+	<File name="../../src/azolla/azolla.H" open="1" top="0" tabpos="16">
+		<Cursor position="837" topLine="24" />
 	</File>
-	<File name="../../src/azolla/canvas.CPP" open="0" top="0" tabpos="9">
-		<Cursor position="2160" topLine="88" />
+	<File name="../../src/azolla/canvas.CPP" open="1" top="0" tabpos="19">
+		<Cursor position="2937" topLine="100" />
 	</File>
-	<File name="../../src/azolla/canvas.H" open="0" top="0" tabpos="8">
-		<Cursor position="409" topLine="9" />
+	<File name="../../src/azolla/canvas.H" open="1" top="0" tabpos="2">
+		<Cursor position="2130" topLine="65" />
 	</File>
-	<File name="../../src/azolla/configure.H" open="1" top="0" tabpos="3">
-		<Cursor position="958" topLine="6" />
+	<File name="../../src/azolla/canvas3d.CPP" open="1" top="0" tabpos="11">
+		<Cursor position="299" topLine="6" />
 	</File>
-	<File name="../../src/azolla/point2d.CPP" open="0" top="0" tabpos="7">
-		<Cursor position="800" topLine="34" />
+	<File name="../../src/azolla/canvas3d.H" open="1" top="0" tabpos="12">
+		<Cursor position="441" topLine="108" />
 	</File>
-	<File name="../../src/azolla/point2d.H" open="0" top="0" tabpos="5">
-		<Cursor position="191" topLine="0" />
+	<File name="../../src/azolla/config.CPP" open="1" top="0" tabpos="4">
+		<Cursor position="228" topLine="148" />
 	</File>
-	<File name="../../src/azolla/pose.CPP" open="0" top="0" tabpos="15">
-		<Cursor position="439" topLine="0" />
+	<File name="../../src/azolla/config.H" open="1" top="0" tabpos="13">
+		<Cursor position="1128" topLine="17" />
 	</File>
-	<File name="../../src/azolla/pose.H" open="0" top="0" tabpos="14">
-		<Cursor position="19" topLine="0" />
-	</File>
-	<File name="../../src/azolla/sensor.CPP" open="0" top="0" tabpos="6">
-		<Cursor position="1836" topLine="80" />
-	</File>
-	<File name="../../src/azolla/sensor.H" open="0" top="0" tabpos="4">
+	<File name="../../src/azolla/config_struct.H" open="1" top="0" tabpos="15">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../../src/azolla/simulation_window.CPP" open="1" top="1" tabpos="7">
-		<Cursor position="5351" topLine="165" />
+	<File name="../../src/azolla/configure.H" open="1" top="1" tabpos="14">
+		<Cursor position="475" topLine="9" />
 	</File>
-	<File name="../../src/azolla/simulation_window.H" open="1" top="0" tabpos="5">
-		<Cursor position="221" topLine="2" />
+	<File name="../../src/azolla/point2d.CPP" open="1" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../../src/azolla/world.CPP" open="0" top="0" tabpos="13">
-		<Cursor position="2461" topLine="55" />
+	<File name="../../src/azolla/point2d.H" open="1" top="0" tabpos="18">
+		<Cursor position="1514" topLine="60" />
 	</File>
-	<File name="../../src/azolla/world.H" open="0" top="0" tabpos="11">
-		<Cursor position="217" topLine="0" />
+	<File name="../../src/azolla/pose.CPP" open="1" top="0" tabpos="9">
+		<Cursor position="175" topLine="0" />
+	</File>
+	<File name="../../src/azolla/pose.H" open="1" top="0" tabpos="20">
+		<Cursor position="549" topLine="15" />
+	</File>
+	<File name="../../src/azolla/sensor.CPP" open="1" top="0" tabpos="8">
+		<Cursor position="584" topLine="0" />
+	</File>
+	<File name="../../src/azolla/sensor.H" open="0" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../src/azolla/simulation_window.CPP" open="1" top="0" tabpos="7">
+		<Cursor position="3370" topLine="216" />
+	</File>
+	<File name="../../src/azolla/simulation_window.H" open="1" top="0" tabpos="10">
+		<Cursor position="488" topLine="2" />
+	</File>
+	<File name="../../src/azolla/world.CPP" open="1" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../src/azolla/world.H" open="1" top="0" tabpos="17">
+		<Cursor position="936" topLine="23" />
+	</File>
+	<File name="../../src/ext/glpng.h" open="1" top="0" tabpos="21">
+		<Cursor position="4060" topLine="54" />
 	</File>
 	<File name="../../src/main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="172" topLine="0" />
+		<Cursor position="654" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

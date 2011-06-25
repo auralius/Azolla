@@ -67,6 +67,9 @@ CWorld::CWorld(const char * f, const AZ_CONFIG *cfg)
 
 CWorld::~CWorld(void)
 {
+	fprintf(stdout, "Cleaning memory [CWorld]\n");
+	fflush(stdout);
+
     delete [] m_gs_map;
     delete [] m_binary_map;
 }

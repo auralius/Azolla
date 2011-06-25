@@ -30,11 +30,11 @@ Codeblocks:
 
 Eclipse:
 You can also open the project using Eclipse by selecting "Import existing 
-project into workspace". Go to folder src , there you can find .cproject and 
-.project file for Eclipse.
+project into workspace". Go to folder src , there you can find .cproject 
+and .project file for Eclipse.
 
 Makefile:
-A makefile is provided in folder src in case you don not want to uset any 
+A makefile is provided in folder src in case you do not want to use any 
 IDE. Use this makefile to compile Azolla. These are available options when 
 using this makefile: make all, make Debug, make Relase, make clean, 
 make clean_Debug, make clean_Release. The binary output will be generated 
@@ -43,6 +43,5 @@ in folder src/bin.
 Windows:
 =======
 I have provided VS project file for Windows users but I haven't updated it 
-since last modification. I also plan to create a makefile.
-
+since last modification. I am not sure this one is still working.
 

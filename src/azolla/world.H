@@ -16,7 +16,7 @@ class CWorld
 {
 public:
 	/**
-	 * Constructor
+	 * Constructor.
 	 * @param f Map file name (PNG file)
 	 * @param cfg Robot configuration
 	 */

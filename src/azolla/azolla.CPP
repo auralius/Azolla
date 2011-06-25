@@ -13,7 +13,7 @@ CAzolla::CAzolla(CSimulationWindow *w)
     m_pose0 = m_pose; // Initial previous robot pose
     m_time_step = 0.02; // Default time step
     m_step_num = 0;
-    m_global_flag = true; // Global flag,class is running
+    m_global_flag = true; // Global flag, this class is running
     m_first_time_flag = true;
     m_map_update_type = 0;
 }
@@ -22,6 +22,9 @@ CAzolla::~CAzolla(void)
 {
     // Clear the global flag, telling that this class has been destroyed
     m_global_flag = false;
+
+    fprintf(stdout, "Cleaning memory [CAzolla]\n");
+    fflush(stdout);
 
 	delete [] m_particles;
 	delete [] m_sensor_data;
@@ -34,6 +37,12 @@ int CAzolla::az_read_config_file(const char *fn)
     // Read configuration file
     CConfig c;
     int ret = c.read_config_file(fn);
+    if (ret == -1 ) {
+    	fprintf(stderr, "Error loading config file: %s.\nFile not found!\n" \
+    			"Using default configuration.\n" , fn);
+    	fflush(stderr);
+
+    }
 
     // Store to memory
     m_cfg.SCALE_FACTOR = c.get_scale_factor();
@@ -335,8 +344,8 @@ void CAzolla::simulation_thread_worker()
             //  initialize sensor value
             if (m_first_time_flag) {
                 for (int i = 0; i < m_cfg.LIDAR_RAYS; i++)
-                    m_sensor_data[i].binary_map_to_scan(m_window->w(),
-                                                        m_window->h(),
+                    m_sensor_data[i].binary_map_to_scan(m_window->get_map_width(),
+                                                        m_window->get_map_height(),
                                                         m_window->get_binary_map());
                     m_pose0 = m_pose;
                     init_odom_data();
@@ -428,7 +437,7 @@ void CAzolla::lidar_sensor()
 
     // For every sensor
     for (int i = 0; i < m_cfg.LIDAR_RAYS; i++) {
-        po = CPoint2D(m_pose.x(), m_pose.y());
+        po = CPoint2D(m_pose.x() + m_cfg.ROBOT_RADIUS, m_pose.y());
         pt = po.translate(m_cfg.LIDAR_MAX,
                           m_pose.th() +  factor * i + m_cfg.LIDAR_START_ANGLE);
 

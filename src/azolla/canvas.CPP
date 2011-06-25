@@ -6,17 +6,8 @@ CCanvas::CCanvas(int x, int y, int w,int h,const char *l)
     box(FL_FLAT_BOX);
     color(fl_rgb_color(127,127,127));
 
-    m_drawing_mode = 1;
+    m_drawing_mode = AZ_DRAW_SENSOR_STRIKE;
     m_simulation_running = false;
-}
-
-int CCanvas::handle(int e)
-{
-    if ( e == FL_PUSH && m_simulation_running == false) {
-        m_pose->set_x(Fl::event_x());
-        m_pose->set_y(Fl::event_y());
-    }
-    return(Fl_Box::handle(e));
 }
 
 //
@@ -62,8 +53,17 @@ void CCanvas::notify_simulation_status(bool s)
 }
 
 //
+// Private
 //
-//
+
+int CCanvas::handle(int e)
+{
+    if ( e == FL_PUSH && m_simulation_running == false) {
+        m_pose->set_x(Fl::event_x());
+        m_pose->set_y(Fl::event_y());
+    }
+    return(Fl_Box::handle(e));
+}
 
 void CCanvas::draw()
 {
@@ -88,7 +88,7 @@ void CCanvas::draw_sensor_beam()
     const int drawing_offset = 4; // Offset happens on y, don't know why??
 
     // Sensor hit mark
-    if (m_drawing_mode == 1) {
+    if (m_drawing_mode == AZ_DRAW_SENSOR_STRIKE) {
         fl_color(FL_RED);
         for (int i = 0; i < m_cfg->LIDAR_RAYS; i = i + 1)
             fl_circle(m_sensor_data[i].get_hit_point().x(),
@@ -98,7 +98,7 @@ void CCanvas::draw_sensor_beam()
 
     // Occupancy grid
     // Draw only grid with OCC != 127, OCC = 127 means unknown
-    else if (m_drawing_mode == 2) {
+    else if (m_drawing_mode == AZ_DRAW_GRID_MAP) {
         // Hide the real map
         fl_rectf(0, 25, w(), h() + 25, 127,127,127);
 
