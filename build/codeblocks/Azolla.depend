@@ -4467,3 +4467,155 @@
 	<math.h>
 	<png.h>
 
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/azolla.CPP
+	"azolla.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/azolla.H
+	"configure.H"
+	"simulation_window.H"
+	<boost/thread.hpp>
+	<boost/random.hpp>
+	<boost/random/normal_distribution.hpp>
+	<iostream>
+	<fstream>
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/configure.H
+	<FL/math.h>
+	"config_struct.H"
+	"config.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/config_struct.H
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/config.H
+	<stdlib.h>
+	<fstream>
+	<set>
+	<boost/config.hpp>
+	<boost/program_options/detail/config_file.hpp>
+	<boost/program_options/parsers.hpp>
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/simulation_window.H
+	<FL/Fl.H>
+	<FL/Fl_Double_Window.H>
+	<FL/Fl_Menu_Bar.H>
+	<FL/Fl_File_Chooser.H>
+	<FL/fl_ask.H>
+	<FL/Fl_Bitmap.H>
+	"configure.H"
+	"config.H"
+	"canvas.H"
+	"canvas3d.H"
+	"world.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/canvas.H
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/fl_draw.H>
+	"configure.H"
+	"point2d.H"
+	"pose.H"
+	"sensor.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/point2d.H
+	<math.h>
+	<vector>
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/pose.H
+	"point2d.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/sensor.H
+	"point2d.H"
+	"stdlib.h"
+
+1396734138 /home/auralius/Documents/Azolla-master/src/azolla/canvas3d.H
+	<FL/Fl.H>
+	<FL/gl.h>
+	<FL/Fl_Gl_Window.H>
+	<FL/Fl_Shared_Image.H>
+	<FL/Fl_PNG_Image.H>
+	<GL/glu.h>
+	<GL/glpng.h>
+	"../ext/zpr.h"
+	"configure.H"
+	"point2d.H"
+	"pose.H"
+	"sensor.H"
+
+1309022757 /home/auralius/Documents/Azolla-master/src/ext/glpng.h
+	<stdio.h>
+
+1309022757 /home/auralius/Documents/Azolla-master/src/ext/zpr.h
+	<windows.h>
+	<GL/glu.h>
+
+1309022757 /home/auralius/Documents/Azolla-master/src/azolla/world.H
+	"configure.H"
+	<FL/Fl_Shared_Image.H>
+	<FL/Fl_PNG_Image.H>
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/canvas.CPP
+	"canvas.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/canvas3d.CPP
+	"canvas3d.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/config.CPP
+	"config.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/point2d.CPP
+	"point2d.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/pose.CPP
+	"pose.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/sensor.CPP
+	"sensor.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/simulation_window.CPP
+	"simulation_window.H"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/azolla/world.CPP
+	"world.H"
+
+1393689436 source:/home/auralius/Documents/Azolla-master/src/ext/glpng.c
+	<windows.h>
+	"glpng.h"
+	<GL/gl.h>
+	<stdlib.h>
+	<math.h>
+	<libpng10/png.h>
+
+1391791056 /usr/include/libpng10/png.h
+	"zlib.h"
+	"pngconf.h"
+	<crtdbg.h>
+
+1391791056 /usr/include/libpng10/pngconf.h
+	"config.h"
+	<windows.h>
+	<stdio.h>
+	<stdio.h>
+	<sys/types.h>
+	<setjmp.h>
+	<strings.h>
+	<string.h>
+	<stdlib.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<malloc.h>
+	<time.h>
+	<dos.h>
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/ext/zpr.c
+	<stdlib.h>
+	<stdio.h>
+	<memory.h>
+	<math.h>
+	"zpr.h"
+
+1309022757 source:/home/auralius/Documents/Azolla-master/src/main.cpp
+	"azolla/azolla.H"
+

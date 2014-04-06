@@ -15,7 +15,7 @@
 #include <FL/Fl_PNG_Image.H>
 
 #include <GL/glu.h>
-#include "../ext/glpng.h"
+#include <GL/glpng.h>
 #include "../ext/zpr.h"
 
 #include "configure.H"

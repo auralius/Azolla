@@ -27,7 +27,7 @@ LIB = `fltk-config --libs --use-images --use-gl --use-glut`
 LDFLAGS = `fltk-config --ldflags --use-images --use-gl --use-glut` \
          -lpng -lz -ljpeg -lXft -lfontconfig -lXinerama -lm -lX11 \
          -lboost_thread -lboost_program_options \
-         -lGL -lGLU -lglut
+         -lGL -lGLU -lglut -lglpng
 
 INC_DEBUG =  $(INC)
 CFLAGS_DEBUG =  $(CFLAGS) -g
@@ -61,7 +61,6 @@ OBJ_DEBUG = $(OBJDIR_DEBUG)/main.o \
         $(OBJDIR_DEBUG)/canvas.o \
 		$(OBJDIR_DEBUG)/canvas3d.o \
         $(OBJDIR_DEBUG)/azolla.o \
-        $(OBJDIR_DEBUG)/glpng.o \
         $(OBJDIR_DEBUG)/zpr.o
 
 OBJ_RELEASE = $(OBJDIR_RELEASE)/main.o \
@@ -74,7 +73,6 @@ OBJ_RELEASE = $(OBJDIR_RELEASE)/main.o \
         $(OBJDIR_RELEASE)/canvas.o \
         $(OBJDIR_RELEASE)/canvas3d.o \
         $(OBJDIR_RELEASE)/azolla.o \
-        $(OBJDIR_RELEASE)/glpng.o \
         $(OBJDIR_RELEASE)/zpr.o
 
 all: Debug Release
@@ -97,9 +95,6 @@ Debug: before_Debug out_Debug after_Debug
 
 out_Debug: $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LDFLAGS_DEBUG) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
-
-$(OBJDIR_DEBUG)/glpng.o: ext/glpng.c ext/glpng.h
-	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/glpng.o ext/glpng.c
 	
 $(OBJDIR_DEBUG)/zpr.o: ext/zpr.c ext/zpr.h
 	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/zpr.o ext/zpr.c
@@ -154,9 +149,6 @@ Release: before_Release out_Release after_Release
 
 out_Release: $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LDFLAGS_RELEASE) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
-
-$(OBJDIR_RELEASE)/glpng.o: ext/glpng.c ext/glpng.h
-	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/glpng.o ext/glpng.c
 	
 $(OBJDIR_RELEASE)/zpr.o: ext/zpr.c ext/zpr.h
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/zpr.o ext/zpr.c

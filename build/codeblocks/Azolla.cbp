@@ -36,6 +36,8 @@
 			<Add option="-lboost_program_options" />
 			<Add option="-lGLU" />
 			<Add option="-lglut" />
+			<Add option="-lpng" />
+			<Add option="-lglpng" />
 		</Linker>
 		<Unit filename="../../src/azolla/azolla.CPP" />
 		<Unit filename="../../src/azolla/azolla.H" />
@@ -57,9 +59,6 @@
 		<Unit filename="../../src/azolla/simulation_window.H" />
 		<Unit filename="../../src/azolla/world.CPP" />
 		<Unit filename="../../src/azolla/world.H" />
-		<Unit filename="../../src/ext/glpng.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../src/ext/glpng.h" />
 		<Unit filename="../../src/ext/zpr.c">
 			<Option compilerVar="CC" />
