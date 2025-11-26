@@ -23,11 +23,11 @@ CFLAGS =  `fltk-config --cxxflags` -DNDEBUG
 RESINC = 
 RCFLAGS = 
 LIBDIR = 
-LIB = `fltk-config --libs --use-images --use-gl --use-glut`
-LDFLAGS = `fltk-config --ldflags --use-images --use-gl --use-glut` \
+LIB = `fltk-config --libs --use-images --use-gl --use-glut` \
+         -lGL -lGLU -lglut \
+         -lXrender -lXext -lXfixes -lXcursor \
          -lpng -lz -ljpeg -lXft -lfontconfig -lXinerama -lm -lX11 \
-         -lboost_thread -lboost_program_options \
-         -lGL -lGLU -lglut -lglpng
+         -lboost_thread -lboost_program_options
 
 INC_DEBUG =  $(INC)
 CFLAGS_DEBUG =  $(CFLAGS) -g
@@ -59,7 +59,6 @@ OBJ_DEBUG = $(OBJDIR_DEBUG)/main.o \
         $(OBJDIR_DEBUG)/point2d.o \
         $(OBJDIR_DEBUG)/config.o \
         $(OBJDIR_DEBUG)/canvas.o \
-		$(OBJDIR_DEBUG)/canvas3d.o \
         $(OBJDIR_DEBUG)/azolla.o \
         $(OBJDIR_DEBUG)/zpr.o
 
@@ -71,7 +70,6 @@ OBJ_RELEASE = $(OBJDIR_RELEASE)/main.o \
         $(OBJDIR_RELEASE)/point2d.o \
         $(OBJDIR_RELEASE)/config.o \
         $(OBJDIR_RELEASE)/canvas.o \
-        $(OBJDIR_RELEASE)/canvas3d.o \
         $(OBJDIR_RELEASE)/azolla.o \
         $(OBJDIR_RELEASE)/zpr.o
 
@@ -95,6 +93,9 @@ Debug: before_Debug out_Debug after_Debug
 
 out_Debug: $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LDFLAGS_DEBUG) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
+
+$(OBJDIR_DEBUG)/glpng.o: ext/glpng.c ext/glpng.h
+	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/glpng.o ext/glpng.c
 	
 $(OBJDIR_DEBUG)/zpr.o: ext/zpr.c ext/zpr.h
 	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/zpr.o ext/zpr.c
@@ -123,9 +124,6 @@ $(OBJDIR_DEBUG)/config.o: azolla/config.CPP azolla/config.H
 $(OBJDIR_DEBUG)/canvas.o: azolla/canvas.CPP azolla/canvas.H
 	$(CPP) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/canvas.o azolla/canvas.CPP
 
-$(OBJDIR_DEBUG)/canvas3d.o: azolla/canvas3d.CPP azolla/canvas3d.H
-	$(CPP) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/canvas3d.o azolla/canvas3d.CPP
-
 $(OBJDIR_DEBUG)/azolla.o: azolla/azolla.CPP azolla/azolla.H
 	$(CPP) $(CFLAGS_DEBUG) $(INC_DEBUG) -c -o $(OBJDIR_DEBUG)/azolla.o azolla/azolla.CPP
 	
@@ -149,6 +147,9 @@ Release: before_Release out_Release after_Release
 
 out_Release: $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LDFLAGS_RELEASE) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
+
+$(OBJDIR_RELEASE)/glpng.o: ext/glpng.c ext/glpng.h
+	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/glpng.o ext/glpng.c
 	
 $(OBJDIR_RELEASE)/zpr.o: ext/zpr.c ext/zpr.h
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/zpr.o ext/zpr.c
@@ -176,9 +177,6 @@ $(OBJDIR_RELEASE)/config.o: azolla/config.CPP azolla/config.H
 
 $(OBJDIR_RELEASE)/canvas.o: azolla/canvas.CPP azolla/canvas.H
 	$(CPP) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/canvas.o azolla/canvas.CPP
-
-$(OBJDIR_RELEASE)/canvas3d.o: azolla/canvas3d.CPP azolla/canvas3d.H
-	$(CPP) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/canvas3d.o azolla/canvas3d.CPP
 
 $(OBJDIR_RELEASE)/azolla.o: azolla/azolla.CPP azolla/azolla.H
 	$(CPP) $(CFLAGS_RELEASE) $(INC_RELEASE) -c -o $(OBJDIR_RELEASE)/azolla.o azolla/azolla.CPP

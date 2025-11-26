@@ -9,13 +9,7 @@ CSimulationWindow::CSimulationWindow(int w,int h,const char *l)
     m_simulation_speed = FAST;
     m_world = NULL;
 
-#ifdef NO_OPENGL
     m_canvas = new CCanvas(0, 25, w, h-25, ""); // Width of menu bar = 25
-#else
-    m_canvas3d = new CCanvas3D(0, 25, w, h-25, ""); // Width of menu bar = 25
-    m_canvas3d->set_map_scale_factor();
-    resizable(m_canvas3d);
-#endif
 
     m_menu = new Fl_Menu_Bar(0, 0, m_canvas->w(), 25);
     m_image = NULL;
@@ -30,12 +24,7 @@ CSimulationWindow::~CSimulationWindow(void)
 
     // Clean up memory
     Fl::delete_widget(m_menu);
-
-#ifdef NO_OPENGL
     Fl::delete_widget(m_canvas);
-#else
-    Fl::delete_widget(m_canvas3d);
-#endif
 
     if (m_world)
     {
@@ -82,28 +71,16 @@ int CSimulationWindow::get_map_width()
     return m_world->get_width();
 }
 
-#ifdef NO_OPENGL
 CCanvas *CSimulationWindow::get_canvas()
 {
     return m_canvas;
 }
-#else
-CCanvas3D *CSimulationWindow::get_canvas()
-{
-    return m_canvas3d;
-}
-#endif
 
 void CSimulationWindow::set_cfg_data(const AZ_CONFIG *cfg)
 {
 	// Set m_cfg in CSimulaitonWindow and in CCanvas to point m_cfg in CAzolla
 	m_cfg = cfg;
-
-#ifdef NO_OPENGL
 	m_canvas->set_cfg_data(cfg);
-#else
-    m_canvas3d->set_cfg_data(cfg);
-#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -175,15 +152,9 @@ void CSimulationWindow::menu_cb_worker()
         m_menu->resize(0, 0, m_world->get_width(), 25);
         m_area = m_world->get_width() * m_world->get_height();
 
-#ifdef NO_OPENGL
         m_canvas->resize(0, 25, m_world->get_width(), m_world->get_height()-25);
         // Display the map on canvas
         m_canvas->image(m_image);
-#else
-        m_canvas3d->resize(0, 25, m_world->get_width(), m_world->get_height()-25);
-        m_canvas3d->set_map_scale_factor();
-        m_canvas3d->load_map_as_texture(file_name);
-#endif
     }
 
     else if (strcmp(picked, "File/Quit") == 0)
@@ -198,11 +169,7 @@ void CSimulationWindow::menu_cb_worker()
         fprintf(stdout, "Simulation is running\n");
         fflush(stdout);
 
-#ifdef NO_OPENGL
         m_canvas->notify_simulation_status(true);
-#else
-        m_canvas3d->notify_simulation_status(true);
-#endif
 
         Fl_Menu_Item *m = (Fl_Menu_Item *)m_menu->find_item("Simulation/Run");
         m->deactivate();
@@ -216,12 +183,7 @@ void CSimulationWindow::menu_cb_worker()
         fprintf(stdout, "Simulation stopped\n");
         fflush(stdout);
 
-
-#ifdef NO_OPENGL
         m_canvas->notify_simulation_status(false);
-#else
-        m_canvas3d->notify_simulation_status(false);
-#endif
 
         Fl_Menu_Item *m = (Fl_Menu_Item *)m_menu->find_item("Simulation/Run");
         m->activate();
@@ -246,20 +208,12 @@ void CSimulationWindow::menu_cb_worker()
 
     else if (strcmp(picked, "Simulation/Debug/Sensor Strike") == 0)
     {
-#ifdef NO_OPENGL
         m_canvas->set_drawing_mode(AZ_DRAW_SENSOR_STRIKE);
-#else
-        m_canvas3d->set_drawing_mode(AZ_DRAW_SENSOR_STRIKE);
-#endif
     }
 
     else if (strcmp(picked, "Simulation/Debug/Grid Memory") == 0)
     {
-#ifdef NO_OPENGL
         m_canvas->set_drawing_mode(AZ_DRAW_GRID_MAP);
-#else
-        m_canvas3d->set_drawing_mode(AZ_DRAW_GRID_MAP);
-#endif
     }
 
     else if (strcmp(picked, "Help/About...") == 0)

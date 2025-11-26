@@ -168,6 +168,7 @@ double CConfig::get_lidar_max_dist()
 
 double CConfig::get_lidar_variance()
 {
+    return sqrt(m_lidar_stdev);
 }
 
 double CConfig::get_lidar_stdev()

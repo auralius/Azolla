@@ -18,7 +18,6 @@
 #include "configure.H"
 #include "config.H"
 #include "canvas.H"
-#include "canvas3d.H"
 #include "world.H"
 
 
@@ -74,19 +73,11 @@ public:
      */
     int get_map_width();
 
-#ifdef NO_OPENGL
     /**
      * Get pointer to canvas.
      * @return Pointer to canvas
      */
     CCanvas *get_canvas();
-#else
-    /**
-     * Get pointer to canvas.
-     * @return Pointer to canvas
-     */
-    CCanvas3D *get_canvas();
-#endif
 
     /**
      * Set configuration
@@ -118,7 +109,6 @@ private:
 
     /// CCanvas is needed for drawing.
     CCanvas *m_canvas;
-    CCanvas3D *m_canvas3d;
 
     /// Menu bar
     Fl_Menu_Bar *m_menu;

@@ -37,14 +37,11 @@
 			<Add option="-lGLU" />
 			<Add option="-lglut" />
 			<Add option="-lpng" />
-			<Add option="-lglpng" />
 		</Linker>
 		<Unit filename="../../src/azolla/azolla.CPP" />
 		<Unit filename="../../src/azolla/azolla.H" />
 		<Unit filename="../../src/azolla/canvas.CPP" />
 		<Unit filename="../../src/azolla/canvas.H" />
-		<Unit filename="../../src/azolla/canvas3d.CPP" />
-		<Unit filename="../../src/azolla/canvas3d.H" />
 		<Unit filename="../../src/azolla/config.CPP" />
 		<Unit filename="../../src/azolla/config.H" />
 		<Unit filename="../../src/azolla/config_struct.H" />
@@ -65,9 +62,6 @@
 		</Unit>
 		<Unit filename="../../src/ext/zpr.h" />
 		<Unit filename="../../src/main.cpp" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
