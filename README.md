@@ -1,5 +1,7 @@
 # Azolla
 
+![](./demo.gif)
+
 Azolla is a C++ framework for simulating mobile robots. It is designed with a strong focus on probabilistic robotics, and provides core features such as:
 
 - Odometry  
