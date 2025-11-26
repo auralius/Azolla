@@ -1,0 +1,47 @@
+
+                              R E A D M E
+                              ===========
+                              Azolla 0.0.1
+
+
+Azolla is a development framework for mobile robot simulation using C++ 
+language. Azolla is designed by emphasizing on simulation for 
+probabilistic robotics. Its features are including: odometry, occupancy 
+algorithm, mapping, and also localization.  The main goal for this 
+simulator software development is to develop a simple 2D mobile robot 
+simulator for testing even a sophisticated algorithm. The specific goals 
+are to build a multi platform and lightweight mobile robot simulator 
+which is easy to use.
+
+
+Brief guidance on how to use can be found at:
+https://sites.google.com/site/auraliusproject/new-azolla
+http://www.metacafe.com/watch/6116481/azolla_probabilistic_mobile_robot_simulator/
+http://www.metacafe.com/watch/6119742/brief_guidance_on_using_azolla_mobile_robot_simulator/
+
+HOW TO INSTALL 
+==============
+Linux:
+=====
+Codeblocks:
+- First install FLTK libraries and Boost libraries.
+- Make sure you have Codeblocks installed.
+- Open  folder build/codeblocks and open file Azolla.cbp using Codeblocks.
+
+Eclipse:
+You can also open the project using Eclipse by selecting "Import existing 
+project into workspace". Go to folder src , there you can find .cproject 
+and .project file for Eclipse.
+
+Makefile:
+A makefile is provided in folder src in case you do not want to use any 
+IDE. Use this makefile to compile Azolla. These are available options when 
+using this makefile: make all, make Debug, make Relase, make clean, 
+make clean_Debug, make clean_Release. The binary output will be generated 
+in folder src/bin.
+
+Windows:
+=======
+I have provided VS project file for Windows users but I haven't updated it 
+since last modification. I am not sure this one is still working.
+
