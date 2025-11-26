@@ -1,47 +1,53 @@
+# Azolla
 
-                              R E A D M E
-                              ===========
-                              Azolla 0.0.1
+Azolla is a C++ framework for simulating mobile robots. It is designed with a strong focus on probabilistic robotics, and provides core features such as:
 
+- Odometry  
+- Occupancy grid algorithms  
+- Mapping  
+- Localization  
 
-Azolla is a development framework for mobile robot simulation using C++ 
-language. Azolla is designed by emphasizing on simulation for 
-probabilistic robotics. Its features are including: odometry, occupancy 
-algorithm, mapping, and also localization.  The main goal for this 
-simulator software development is to develop a simple 2D mobile robot 
-simulator for testing even a sophisticated algorithm. The specific goals 
-are to build a multi platform and lightweight mobile robot simulator 
-which is easy to use.
+The main goal of Azolla is to offer a simple 2D mobile robot simulator that can still be used to test sophisticated algorithms. More specifically, Azolla aims to be:
 
+- Lightweight  
+- Easy to use  
+- Multi-platform  
 
-Brief guidance on how to use can be found at:
-https://sites.google.com/site/auraliusproject/new-azolla
-http://www.metacafe.com/watch/6116481/azolla_probabilistic_mobile_robot_simulator/
-http://www.metacafe.com/watch/6119742/brief_guidance_on_using_azolla_mobile_robot_simulator/
+For detailed usage instructions, refer to:
 
-HOW TO INSTALL 
-==============
-Linux:
-=====
-Codeblocks:
-- First install FLTK libraries and Boost libraries.
-- Make sure you have Codeblocks installed.
-- Open  folder build/codeblocks and open file Azolla.cbp using Codeblocks.
+[Using Azolla.pdf](https://github.com/auralius/Azolla/blob/master/Using%20Azolla.pdf)
 
-Eclipse:
-You can also open the project using Eclipse by selecting "Import existing 
-project into workspace". Go to folder src , there you can find .cproject 
-and .project file for Eclipse.
+---
 
-Makefile:
-A makefile is provided in folder src in case you do not want to use any 
-IDE. Use this makefile to compile Azolla. These are available options when 
-using this makefile: make all, make Debug, make Relase, make clean, 
-make clean_Debug, make clean_Release. The binary output will be generated 
-in folder src/bin.
+## Installation
 
-Windows:
-=======
-I have provided VS project file for Windows users but I haven't updated it 
-since last modification. I am not sure this one is still working.
+### Linux
 
+#### Using Code::Blocks
+
+1. Install the **FLTK** libraries.
+2. Install the **Boost** libraries.
+3. Ensure **Code::Blocks** is installed.
+4. Open the `build/codeblocks` folder.
+5. Open `Azolla.cbp` using Code::Blocks.
+
+#### Using Eclipse
+
+You can also build and run Azolla using **Eclipse**:
+
+1. In Eclipse, select **“Import existing project into workspace”**.
+2. Navigate to the `src` folder.
+3. Select the `.cproject` and `.project` files to import the project.
+
+#### Using Makefile (no IDE)
+
+A `Makefile` is provided in the `src` folder if you prefer not to use an IDE.  
+
+The compiled binary will be generated in the `src/bin` directory.
+
+---
+
+### Windows
+
+A Visual Studio project file is provided for Windows users.  
+However, it has not been updated since the last modification, so it may no longer work as-is.
